@@ -1,0 +1,12 @@
+<div class="main users-index">
+  <div class="container">
+    <% @users.each do |user| %>
+    <div class="users-index-item">
+      <a href="<%= "/users/#{user.id}" %>">
+        <img src="<%= "/user_images/#{user.image_name}" %>">
+        <p><%= user.name %></p>
+      </a>
+    </div>
+    <% end %>
+  </div>
+</div>

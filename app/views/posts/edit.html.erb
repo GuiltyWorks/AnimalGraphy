@@ -1,0 +1,22 @@
+<div class="main posts-new">
+  <div class="container">
+    <h1 class="form-heading">編集する</h1>
+    <%= form_tag("/posts/#{@post.id}/update", {multipart: true}) do %>
+    <div class="form">
+      <div class="form-body">
+        <% @post.errors.full_messages.each do |message| %>
+        <div class="form-error">
+          <%= message %>
+        </div>
+        <% end %>
+
+        <p>画像</p>
+        <input name="image" type="file">
+        <p>コメント</p>
+        <textarea name="comment"><%= @post.comment %></textarea>
+        <input type="submit" value="保存する">
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+// --------All--------
+// head
+.post-head {
+  float: left;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.post-head img {
+  float: left;
+  width: 50px;
+  height: 50px;
+  border-radius: 25%;
+  box-shadow: 0 2px 6px #d1d1d1;
+  object-fit: cover;
+  transition-duration: 0.25s;
+}
+
+.post-head img:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+.post-head p {
+  float: left;
+  color: black;
+  width: auto;
+  height: 50px;
+  padding: 10px 0 10px 10px;
+  font-size: 22px;
+  transition-duration: 0.25s;
+}
+
+.post-head p:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+// body
+.post-body * {
+  color: black;
+  text-align: left;
+  word-break: break-all;
+}
+
+.post-body {
+  //float: left;
+  width: 100%;
+  height: auto;
+  text-align: left;
+  font-size: 0;
+}
+
+.post-body a {
+  font-size: 0;
+}
+
+.post-body img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5px;
+  transition-duration: 0.25s;
+}
+
+.post-body img:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+.post-body p {
+  width: 100%;
+  height: auto;
+  font-size: 18px;
+  margin-bottom: 5px;
+  transition-duration: 0.25s;
+}
+
+.post-body p:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+.post-body .clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.post-body .tag a {
+  float: left;
+  margin: 0 15px 0 0;
+  color: #0080ff;
+  font-size: 18px;
+  transition-duration: 0.25s;
+}
+
+.post-body .tag a:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+// --------/posts/index--------
+.posts-index-item {
+  padding: 20px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 2px 6px #d1d1d1;
+  margin-bottom: 10px;
+}
+
+// --------/posts/show--------
+.posts-show .container {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 0 10px;
+  clear: both;
+}
+
+.posts-show-item {
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 6px #d1d1d1;
+  overflow: hidden;
+}
+
+// body
+.posts-show .post-body img:hover {
+  opacity: 1;
+  transition-duration: 0;
+}
+
+.posts-show .post-body p:hover {
+  opacity: 1;
+  transition-duration: 0;
+}
+
+.posts-show-item .post-body .post-time {
+  color: #808080;
+  font-size: 20px;
+}
+
+.posts-show-item .post-body .like-btn {
+  color: #808080;
+}
+
+.posts-show-item .post-body .like-btn-unlike {
+  color: #ff2525;
+}
+
+.posts-show-item .post-body .fa {
+  font-size: 20px;
+}
+
+.posts-show-item .post-body .post-menus {
+  float: right;
+  font-size: 20px;
+}
+
+.posts-show-item .post-body .post-menus a,
+.posts-show-item .post-body .post-menus input {
+  color: #808080;
+  font-size: 20px;
+  padding-right: 5px;
+}
+
+.posts-show form {
+  display: inline;
+}
+
+// --------/posts/new--------
+.posts-new .container {
+  max-width: 650px;
+}
+
+.posts-new .container .form {
+  max-width: 650px;
+  margin: 0;
+  background-color: white;
+  box-shadow: 0 2px 6px #d1d1d1;
+}
+
+.posts-new .container p {
+  font-size: 20px;
+}
+
+.posts-new .form .form-body input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.posts-new .form .form-body textarea {
+  font-size: 20px;
+  min-height: 160px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dfdfdf;
+  resize: none;
+}
+
+.posts-new textarea::-webkit-input-placeholder {
+  font-size: 22px;
+  opacity: 0.5;
+}
