@@ -1,0 +1,134 @@
+// --------/users/index--------
+.users-index-item {
+    padding: 20px 20px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 6px #d1d1d1;
+    display: table;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.users-index-item img {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 25%;
+    box-shadow: 0 2px 6px #d1d1d1;
+    object-fit: cover;
+    transition-duration: 0.25s;
+}
+
+.users-index-item img:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+.users-index-item p {
+    float: left;
+    color: black;
+    width: auto;
+    height: 50px;
+    font-size: 22px;
+    padding: 10px 0 10px 10px;
+    transition-duration: 0.25s;
+}
+
+.users-index-item p:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+// --------/users/show--------
+// user
+.user {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user img {
+    width: 75px;
+    height: 75px;
+    border-radius: 25%;
+    box-shadow: 0 2px 6px #d1d1d1;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.user h2 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.user p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.user a {
+    color: #808080;
+    font-weight: 200;
+    transition-duration: 0.25s;
+}
+
+.user a:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+.user span {
+    color: #afb6bf;
+    font-weight: 200;
+    padding: 0 6px 0 8px;
+}
+
+// user-tabs
+.user-tabs {
+    margin-top: 20px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 6px #d1d1d1;
+}
+
+.user-tabs li {
+    float: left;
+}
+
+.user-tabs li.active {
+    border-bottom: 2px solid #10c000;
+}
+
+.user-tabs li.active a {
+    color: #57575f;
+}
+
+.user-tabs a {
+    display: inline-block;
+    padding: 16px 30px;
+    color: #808080;
+}
+
+.posts-index-item .post-body .tag {
+    float: left;
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    word-break: keep-all;
+}
+
+// --------/users/new, /users/edit--------
+.users-new .form .form-body p,
+.users-edit .form .form-body p {
+    font-size: 20px;
+}
+
+.users-new .form .form-body input,
+.users-edit .form .form-body input {
+    margin-bottom: 10px;
+}
+
+.users-new .form .form-body input[type="submit"],
+.users-edit .form .form-body input[type="submit"] {
+    margin: 0;
+}

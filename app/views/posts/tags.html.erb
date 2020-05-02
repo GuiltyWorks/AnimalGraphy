@@ -1,0 +1,36 @@
+<div class="main posts-index">
+  <div class="container">
+    <% @tags.each do |tag| %>
+    <% post = Post.find_by(id: tag.post_id) %>
+    <div class="posts-index-item">
+      <div class="post-head">
+        <a href="<%= "/users/#{post.user_id}" %>">
+          <img src="<%= "/user_images/#{post.user.image_name}" %>">
+          <p><%= post.user.name %></p>
+        </a>
+      </div>
+
+      <div class="post-body">
+        <a href="<%= "/posts/#{post.id}" %>">
+          <img src="<%= "/post_images/#{post.id}.jpg" %>">
+          <p>
+            <%= post.comment %>
+          </p>
+        </a>
+        <div class="tag">
+          <% if tag.bird %><%= link_to("bird", "/posts/tags/bird") %><% end %>
+          <% if tag.cat %><%= link_to("cat", "/posts/tags/cat") %><% end %>
+          <% if tag.dog %><%= link_to("dog", "/posts/tags/dog") %><% end %>
+          <% if tag.horse %><%= link_to("horse", "/posts/tags/horse") %><% end %>
+          <% if tag.sheep %><%= link_to("sheep", "/posts/tags/sheep") %><% end %>
+          <% if tag.cow %><%= link_to("cow", "/posts/tags/cow") %><% end %>
+          <% if tag.elephant %><%= link_to("elephant", "/posts/tags/elephant") %><% end %>
+          <% if tag.bear %><%= link_to("bear", "/posts/tags/bear") %><% end %>
+          <% if tag.zebra %><%= link_to("zebra", "/posts/tags/zebra") %><% end %>
+          <% if tag.giraffe %><%= link_to("giraffe", "/posts/tags/giraffe") %><% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

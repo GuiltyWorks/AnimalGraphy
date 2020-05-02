@@ -1,24 +1,51 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
 
-Things you may want to cover:
+AnimalGraphyは、あなたの好みにあった動物の写真を自由に投稿、閲覧できるサービスです。
+ディープラーニングによって、投稿された写真から動物が検出され、自動的にタグがつきます。
 
-* Ruby version
+## 機能
 
-* System dependencies
+* ログイン・ログアウト機能
 
-* Configuration
+* 写真・コメント投稿機能
 
-* Database creation
+* 投稿編集機能
 
-* Database initialization
+* 投稿削除機能
 
-* How to run the test suite
+## 環境
 
-* Services (job queues, cache servers, search engines, etc.)
+* 言語 : Ruby 2.7.1
 
-* Deployment instructions
+* WEBフレームワーク : Ruby on Rails 5.2.4.2
 
-* ...
+* 学習済みモデル : YOLOv3
+
+* 推論エンジン : ONNX Runtime
+
+* データベース : MySQL 5.7
+
+* 実行・開発環境 : Docker
+
+* 運用環境 : AWS EC2
+
+## 実行方法
+
+起動
+
+`docker-compose up`
+
+停止
+
+`docker-compose down`
+
+データベースの作成
+
+`docker-compose run web rails db:create`
+`docker-compose run web rails db:migrate`
+
+※学習済みモデルとラベルファイルをダウンロードし、public/object_detectionディレクトリ内に配置
+
+ダウンロード : https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov3

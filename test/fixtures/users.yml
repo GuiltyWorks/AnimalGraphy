@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: Tarou
+  email: tarou@testmail.com
+  image_name: default.jpg
+  password_digest: <%= User.digest("password") %>
+
+two:
+  id: 2
+  name: Hanako
+  email: hanako@testmail.com
+  image_name: default.jpg
+  password_digest: <%= User.digest("password") %>
+
+three:
+  id: 3
+  name: John
+  email: john@testmail.com
+  image_name: default.jpg
+  password_digest: <%= User.digest("password") %>

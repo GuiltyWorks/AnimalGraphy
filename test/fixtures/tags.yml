@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  post_id: 1
+  bird: true
+  cat: false
+  dog: false
+  horse: false
+  sheep: false
+  cow: false
+  elephant: false
+  bear: false
+  zebra: false
+  giraffe: false
+
+two:
+  id: 2
+  post_id: 2
+  bird: false
+  cat: true
+  dog: false
+  horse: false
+  sheep: false
+  cow: false
+  elephant: false
+  bear: false
+  zebra: false
+  giraffe: false
+
+three:
+  id: 3
+  post_id: 3
+  bird: false
+  cat: false
+  dog: true
+  horse: false
+  sheep: false
+  cow: false
+  elephant: false
+  bear: false
+  zebra: false
+  giraffe: false
