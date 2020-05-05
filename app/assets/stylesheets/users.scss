@@ -1,22 +1,22 @@
 // --------/users/index--------
 .users-index-item {
-    padding: 20px 20px;
     background-color: white;
-    overflow: hidden;
     box-shadow: 0 2px 6px #d1d1d1;
     display: table;
+    overflow: hidden;
     width: 100%;
+    padding: 20px 20px;
     margin-bottom: 10px;
 }
 
 .users-index-item img {
+    box-shadow: 0 2px 6px #d1d1d1;
+    border-radius: 25%;
+    transition-duration: 0.25s;
     float: left;
+    object-fit: cover;
     width: 50px;
     height: 50px;
-    border-radius: 25%;
-    box-shadow: 0 2px 6px #d1d1d1;
-    object-fit: cover;
-    transition-duration: 0.25s;
 }
 
 .users-index-item img:hover {
@@ -25,13 +25,12 @@
 }
 
 .users-index-item p {
-    float: left;
     color: black;
-    width: auto;
-    height: 50px;
     font-size: 22px;
-    padding: 10px 0 10px 10px;
     transition-duration: 0.25s;
+    float: left;
+    height: 50px;
+    padding: 10px 0 10px 10px;
 }
 
 .users-index-item p:hover {
@@ -42,17 +41,17 @@
 // --------/users/show--------
 // user
 .user {
-    margin-bottom: 20px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .user img {
+    box-shadow: 0 2px 6px #d1d1d1;
+    border-radius: 25%;
+    object-fit: cover;
     width: 75px;
     height: 75px;
-    border-radius: 25%;
-    box-shadow: 0 2px 6px #d1d1d1;
     margin-bottom: 10px;
-    object-fit: cover;
 }
 
 .user h2 {
@@ -85,10 +84,10 @@
 
 // user-tabs
 .user-tabs {
-    margin-top: 20px;
     background-color: white;
-    overflow: hidden;
     box-shadow: 0 2px 6px #d1d1d1;
+    overflow: hidden;
+    margin-top: 20px;
 }
 
 .user-tabs li {
@@ -104,17 +103,16 @@
 }
 
 .user-tabs a {
+    color: #808080;
     display: inline-block;
     padding: 16px 30px;
-    color: #808080;
 }
 
 .posts-index-item .post-body .tag {
-    float: left;
-    width: 100%;
-    height: auto;
     font-size: 20px;
     word-break: keep-all;
+    float: left;
+    width: 100%;
 }
 
 // --------/users/new, /users/edit--------
@@ -131,4 +129,51 @@
 .users-new .form .form-body input[type="submit"],
 .users-edit .form .form-body input[type="submit"] {
     margin: 0;
+}
+
+.users-edit .form .form-body .delete {
+    text-align: center;
+    clear: right;
+    margin: 100px auto 0;
+}
+
+.users-edit .form .form-body .delete a {
+    color: red;
+    transition-duration: 0.25s;
+}
+
+.users-edit .form .form-body .delete a:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+// --------delete--------
+.users-delete .form .form-body {
+    text-align: center;
+}
+
+.users-delete .form .form-body .delete {
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.users-delete .form .form-body a {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    padding: 10px;
+    margin: 0 50px;
+}
+
+.users-delete .form .form-body .delete .delete-button {
+    color: red;
+}
+
+.users-delete .form .form-body .delete .cancel-button {
+    color: black;
 }

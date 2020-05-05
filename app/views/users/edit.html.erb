@@ -17,6 +17,9 @@
         <input name="email" value="<%= @user.email %>">
         <input type="submit" value="保存">
         <% end %>
+        <div class="delete">
+          <%= link_to("アカウントを削除する", "/users/#{@user.id}/delete") %>
+        </div>
       </div>
     </div>
   </div>

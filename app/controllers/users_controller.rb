@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, { only: [:edit, :update] }
+  before_action :authenticate_user, { only: [:edit, :update, :destroy] }
   before_action :forbid_login_user, { only: [:new, :create, :login_form, :login] }
-  before_action :ensure_correct_user, { only: [:edit, :update] }
+  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
     @users = User.all
@@ -52,6 +52,25 @@ class UsersController < ApplicationController
     else
       render("users/edit")
     end
+  end
+
+  def delete
+    @user = User.find_by(id: params[:id])
+  end
+
+  def destroy
+    @user = User.find_by(id: params[:id])
+    @user.destroy
+    @posts = Post.where(user_id: params[:id])
+    @posts.each do |post|
+      post.destroy
+    end
+    @tags = Post.where(user_id: params[:id])
+    @tags.each do |tag|
+      tag.destroy
+    end
+    flash[:notice] = "アカウントを削除しました"
+    redirect_to("/posts/index")
   end
 
   def login_form

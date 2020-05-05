@@ -44,6 +44,32 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "get delete before login" do
+    get "/users/1/delete"
+    assert_template "users/delete"
+    assert_response :success
+  end
+
+  test "post create before login" do
+    post "/users/create", params: { name: "Test", email: "test@testmail.com", password: "password" }
+    follow_redirect!
+    assert_template "users/show"
+  end
+
+  test "post update before login" do
+    post "/users/1/update", params: { name: "Test", email: "test@testmail.com" }
+    assert_redirected_to "/login"
+    follow_redirect!
+    assert_template "users/login_form"
+  end
+
+  test "post destroy before login" do
+    post "/users/1/destroy"
+    assert_redirected_to "/login"
+    follow_redirect!
+    assert_template "users/login_form"
+  end
+
   # After Login
   test "get login after login" do
     login
@@ -89,5 +115,36 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get "/users/#{session[:user_id]}"
     assert_template "users/show"
     assert_response :success
+  end
+
+  test "get delete after login" do
+    login
+    get "/users/1/delete"
+    assert_template "users/delete"
+    assert_response :success
+  end
+
+  test "post create after login" do
+    login
+    post "/users/create", params: { name: "Test", email: "test@testmail.com", password: "password" }
+    assert_redirected_to "/posts/index"
+    follow_redirect!
+    assert_template "posts/index"
+  end
+
+  test "post update after login" do
+    login
+    post "/users/#{session[:user_id]}/update", params: { name: "Test", email: "test@testmail.com" }
+    assert_redirected_to "/users/#{session[:user_id]}"
+    follow_redirect!
+    assert_template "users/show"
+  end
+
+  test "post destroy after login" do
+    login
+    post "/users/#{session[:user_id]}/destroy"
+    assert_redirected_to "/posts/index"
+    follow_redirect!
+    assert_template "posts/index"
   end
 end

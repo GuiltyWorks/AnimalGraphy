@@ -1,0 +1,16 @@
+<div class="main users-edit users-delete">
+  <div class="container">
+    <div class="form users-form">
+      <div class="form-body">
+        <p>削除されたアカウントを復元することはできません。</p>
+        <p>投稿などはすべて削除されます。</p>
+        <p>アカウントを本当に削除しますか？</p>
+
+        <div class="delete">
+          <%= link_to("削除", "/users/#{@user.id}/destroy", {method: "post", class: "delete-button"}) %>
+          <%= link_to("キャンセル", "/users/#{@user.id}", {class: "cancel-button"}) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
