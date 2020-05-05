@@ -69,4 +69,10 @@ gem 'numo-narray'
 # https://github.com/ankane/onnxruntime
 gem 'onnxruntime'
 
+# This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
+# https://github.com/rails/rails-controller-testing
 gem 'rails-controller-testing'
+
+# jQuery for Rails
+# https://github.com/rails/jquery-rails
+gem 'jquery-rails'

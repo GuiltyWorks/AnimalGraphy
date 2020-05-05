@@ -24,5 +24,12 @@
 /public/assets
 .byebug_history
 
+/public/post_images/*
+!/public/post_images/1.jpg
+!/public/post_images/2.jpg
+!/public/post_images/3.jpg
+/public/user_images/*
+!/public/user_images/default.jpg
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
