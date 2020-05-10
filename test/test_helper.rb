@@ -7,8 +7,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  def login
-    post login_path, params: { email: users(:one).email, password: "password" }
+  def login(login_user)
+    post login_path, params: { email: users(login_user).email, password: "password" }
+    assert_response :redirect
     assert_redirected_to "/posts/index"
     follow_redirect!
     assert_template "posts/index"

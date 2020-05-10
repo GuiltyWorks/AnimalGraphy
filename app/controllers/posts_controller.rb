@@ -27,6 +27,8 @@ class PostsController < ApplicationController
     @tag = Tag.find_by(post_id: @post.id)
     @user = @post.user
     @likes_count = Like.where(post_id: params[:id]).count
+    @reply = Reply.new
+    @replies = Reply.where(post_id: params[:id]).order(created_at: :desc)
   end
 
   def new
@@ -45,19 +47,11 @@ class PostsController < ApplicationController
 
       detection_result = detection("public/post_images/#{@post.id}.jpg")
 
-      @tag = Tag.new(
-        post_id: @post.id,
-        bird: detection_result[:bird],
-        cat: detection_result[:cat],
-        dog: detection_result[:dog],
-        horse: detection_result[:horse],
-        sheep: detection_result[:sheep],
-        cow: detection_result[:cow],
-        elephant: detection_result[:elephant],
-        bear: detection_result[:bear],
-        zebra: detection_result[:zebra],
-        giraffe: detection_result[:giraffe],
-      )
+      @tag = Tag.new(post_id: @post.id)
+      detection_result.each do |tag|
+        @tag[tag.to_sym] = true
+      end
+
       @tag.save
 
       flash[:notice] = "投稿を作成しました"
@@ -83,16 +77,9 @@ class PostsController < ApplicationController
         detection_result = detection("public/post_images/#{@post.id}.jpg")
 
         @tag = Tag.find_by(post_id: @post.id)
-        @tag.bird = detection_result[:bird]
-        @tag.cat = detection_result[:cat]
-        @tag.dog = detection_result[:dog]
-        @tag.horse = detection_result[:horse]
-        @tag.sheep = detection_result[:sheep]
-        @tag.cow = detection_result[:cow]
-        @tag.elephant = detection_result[:elephant]
-        @tag.bear = detection_result[:bear]
-        @tag.zebra = detection_result[:zebra]
-        @tag.giraffe = detection_result[:giraffe]
+        detection_result.each do |tag|
+          @tag[tag.to_sym] = true
+        end
 
         @tag.save
       end
@@ -109,6 +96,11 @@ class PostsController < ApplicationController
     @post.destroy
     @tag = Tag.find_by(post_id: params[:id])
     @tag.destroy
+    @replies = Reply.where(post_id: params[:id])
+    @replies.each do |reply|
+      reply.destroy
+    end
+
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
   end
@@ -137,6 +129,7 @@ class PostsController < ApplicationController
     img_data /= 255.0
     image_data = img_data.transpose(2, 0, 1).expand_dims(0).to_a
 
+    # 物体検出
     output = model.predict(input_1: image_data, image_shape: image_size)
 
     boxes, scores, indices = output.values
@@ -144,19 +137,17 @@ class PostsController < ApplicationController
       { class: idx[1], score: scores[idx[0]][idx[1]][idx[2]], box: boxes[idx[0]][idx[2]] }
     end
 
-    img = MiniMagick::Image.open(img_name)
-    animals = [:bird, :cat, :dog, :horse, :sheep, :cow, :elephant, :bear, :zebra, :giraffe]
-    result = { bird: false, cat: false, dog: false, horse: false, sheep: false, cow: false, elephant: false, bear: false, zebra: false, giraffe: false }
+    animals = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
+    result = []
 
     results.each do |r|
-      hue = r[:class] * 100 / 80.0
-      label = labels[r[:class]].chomp.to_sym
+      label = labels[r[:class]].chomp
+      score = r[:score]
 
-      # 判定結果が動物以外なら無視
-      if animals.any? { |animal| label == animal }
-        result[label] = true
-        puts "----Detection----"
-        puts result[label]
+      # 判定結果が動物かつ確率が50%以上の場合のみ検出扱い
+      if animals.include?(label) && score > 0.5
+        puts label
+        result.push(label)
       end
     end
 

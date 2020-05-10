@@ -215,13 +215,6 @@ header {
     margin: 0 auto;
 }
 
-.form-heading {
-    color: #808080;
-    font-size: 48px;
-    font-weight: normal;
-    margin: 60px 0 20px;
-}
-
 .form-body {
     font-size: 0;
     padding: 20px;
@@ -231,7 +224,7 @@ header {
     color: red;
 }
 
-.form input {
+.form-body input {
     color: #202020;
     letter-spacing: 2px;
     font-size: 16px;
@@ -241,14 +234,14 @@ header {
     padding: 10px;
 }
 
-.form textarea {
+.form-body textarea {
     font-size: 16px;
     letter-spacing: 2px;
     width: 100%;
     min-height: 110px;
 }
 
-.form input[type="submit"] {
+.form-body input[type="submit"] {
     color: white;
     background-color: #0080ff;
     font-weight: bold;

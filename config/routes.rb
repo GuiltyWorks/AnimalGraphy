@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   root "home#top"
 
+  get "replies/:id/edit" => "replies#edit"
+
+  post "replies/:id/create" => "replies#create"
+  post "replies/:id/update" => "replies#update"
+  post "replies/:id/destroy" => "replies#destroy"
+
   post "likes/:post_id/create" => "likes#create"
   post "likes/:post_id/destroy" => "likes#destroy"
 

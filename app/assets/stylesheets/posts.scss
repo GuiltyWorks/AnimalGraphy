@@ -107,7 +107,7 @@
 .posts-show .container {
   clear: both;
   max-width: 750px;
-  padding: 0 10px;
+  padding: 0;
   margin: 20px auto;
 }
 
@@ -116,6 +116,7 @@
   box-shadow: 0 2px 6px #d1d1d1;
   overflow: hidden;
   padding: 20px;
+  margin-bottom: 10px;
 }
 
 // post-body
@@ -132,6 +133,14 @@
 .posts-show-item .post-body .post-time {
   color: #808080;
   font-size: 20px;
+}
+
+.posts-show-item .post-body .like-btn-no-hover {
+  color: #808080;
+  opacity: 1;
+  line-height: 1.5;
+  float: left;
+  padding-right: 5px;
 }
 
 .posts-show-item .post-body .like-btn {
@@ -187,27 +196,109 @@
   display: inline;
 }
 
+// reply-form
+.posts-show .container .posts-show-item .form-body {
+  padding: 0;
+  margin: 0;
+}
+
+.posts-show .container .posts-show-item textarea {
+  font-size: 20px;
+  border: 1px solid #dfdfdf;
+  resize: none;
+  min-height: 160px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.posts-show .container .posts-show-item textarea::-webkit-input-placeholder {
+  font-size: 22px;
+  opacity: 0.5;
+}
+
+// reply-head
+.posts-show-item .reply-head {
+  float: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.posts-show-item .reply-head img {
+  box-shadow: 0 2px 6px #d1d1d1;
+  border-radius: 25%;
+  transition-duration: 0.25s;
+  float: left;
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.posts-show-item .reply-head img:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+.posts-show-item .reply-head p {
+  color: black;
+  font-size: 22px;
+  transition-duration: 0.25s;
+  float: left;
+  height: 50px;
+  padding: 10px 0 10px 10px;
+}
+
+.posts-show-item .reply-head p:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
+// reply-body
+.posts-show-item .reply-body {
+  font-size: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.posts-show-item .reply-body .reply-menus {
+  font-size: 18px;
+  float: right;
+}
+
+.posts-show-item .reply-body .reply-menus a,
+.posts-show-item .reply-body .reply-menus input {
+  color: #808080;
+  font-size: 18px;
+  transition-duration: 0.25s;
+  margin-left: 20px;
+}
+
+.posts-show-item .reply-body .reply-menus a:hover,
+.posts-show-item .reply-body .reply-menus input:hover {
+  opacity: 0.5;
+  transition-duration: 0.25s;
+}
+
 // --------/posts/new--------
 .posts-new .container {
   max-width: 650px;
 }
 
-.posts-new .container .form {
+.posts-new .container .posts-new-item {
   background-color: white;
   box-shadow: 0 2px 6px #d1d1d1;
   max-width: 650px;
   margin: 0;
 }
 
-.posts-new .container p {
+.posts-new .container .posts-new-item p {
   font-size: 20px;
 }
 
-.posts-new .form .form-body input[type="file"] {
+.posts-new .container .posts-new-item input[type="file"] {
   margin-bottom: 10px;
 }
 
-.posts-new .form .form-body textarea {
+.posts-new .container .posts-new-item textarea {
   font-size: 20px;
   border: 1px solid #dfdfdf;
   resize: none;
@@ -216,7 +307,37 @@
   margin-bottom: 10px;
 }
 
-.posts-new textarea::-webkit-input-placeholder {
+.posts-new .container .posts-new-item textarea::-webkit-input-placeholder {
+  font-size: 22px;
+  opacity: 0.5;
+}
+
+// --------/posts/edit--------
+.posts-edit .container .posts-edit-item {
+  background-color: white;
+  box-shadow: 0 2px 6px #d1d1d1;
+  max-width: 650px;
+  margin: 0;
+}
+
+.posts-edit .container .posts-edit-item p {
+  font-size: 20px;
+}
+
+.posts-edit .container .posts-edit-item input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.posts-edit .container .posts-edit-item textarea {
+  font-size: 20px;
+  border: 1px solid #dfdfdf;
+  resize: none;
+  min-height: 160px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.posts-edit .container .posts-edit-item textarea::-webkit-input-placeholder {
   font-size: 22px;
   opacity: 0.5;
 }

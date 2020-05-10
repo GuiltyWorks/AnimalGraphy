@@ -1,7 +1,7 @@
 <div class="main posts-new">
   <div class="container">
-    <%= form_tag("/posts/create", {multipart: true}) do %>
-    <div class="form">
+    <div class="posts-new-item">
+      <%= form_tag("/posts/create", {multipart: true}) do %>
       <div class="form-body">
         <% @post.errors.full_messages.each do |message| %>
         <div class="form-error">
@@ -15,7 +15,7 @@
         <textarea name="comment"><%= @post.comment %></textarea>
         <input type="submit" value="投稿">
       </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>

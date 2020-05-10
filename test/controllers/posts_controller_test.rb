@@ -2,14 +2,14 @@ require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:one)
+    @post = posts(:one)
   end
 
   # Before Login
   test "get index before login" do
     get "/posts/index"
-    assert_template "posts/index"
     assert_response :success
+    assert_template "posts/index"
   end
 
   test "get new before login" do
@@ -21,7 +21,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get edit before login" do
-    get "/posts/1/edit"
+    get "/posts/#{@post.id}/edit"
     assert_response :redirect
     assert_redirected_to "/login"
     follow_redirect!
@@ -29,27 +29,30 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get show before login" do
-    get "/posts/1"
-    assert_template "posts/show"
+    get "/posts/#{@post.id}"
     assert_response :success
+    assert_template "posts/show"
   end
 
   test "post create before login" do
     post "/posts/create", params: { comment: "Test Comment.", image: fixture_file_upload("test/fixtures/files/cat.jpg") }, headers: { 'content-type': "multipart/form-data" }
+    assert_response :redirect
     assert_redirected_to "/login"
     follow_redirect!
     assert_template "users/login_form"
   end
 
   test "post update before login" do
-    post "/posts/1/update", params: { id: @user.id, comment: "Test Comment." }
+    post "/posts/#{@post.id}/update", params: { comment: "Test Comment." }
+    assert_response :redirect
     assert_redirected_to "/login"
     follow_redirect!
     assert_template "users/login_form"
   end
 
   test "post destroy before login" do
-    post "/posts/1e/destroy"
+    post "/posts/#{@post.id}/destroy"
+    assert_response :redirect
     assert_redirected_to "/login"
     follow_redirect!
     assert_template "users/login_form"
@@ -57,52 +60,55 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   # After Login
   test "get index after login" do
-    login
+    login(:one)
     get "/posts/index"
-    assert_template "posts/index"
     assert_response :success
+    assert_template "posts/index"
   end
 
   test "get new after login" do
-    login
+    login(:one)
     get "/posts/new"
-    assert_template "posts/new"
     assert_response :success
+    assert_template "posts/new"
   end
 
   test "get edit after login" do
-    login
-    get "/posts/1/edit"
-    assert_template "posts/edit"
+    login(:one)
+    get "/posts/#{@post.id}/edit"
     assert_response :success
+    assert_template "posts/edit"
   end
 
   test "get show after login" do
-    login
-    get "/posts/1"
-    assert_template "posts/show"
+    login(:one)
+    get "/posts/#{@post.id}"
     assert_response :success
+    assert_template "posts/show"
   end
 
   test "post create after login" do
-    login
+    login(:one)
     post "/posts/create", params: { comment: "Test Comment.", image: fixture_file_upload("test/fixtures/files/cat.jpg") }, headers: { 'content-type': "multipart/form-data" }
+    assert_response :redirect
     assert_redirected_to "/posts/index"
     follow_redirect!
     assert_template "posts/index"
   end
 
   test "post update after login" do
-    login
-    post "/posts/1/update", params: { id: @user.id, comment: "Test Comment." }
+    login(:one)
+    post "/posts/#{@post.id}/update", params: { comment: "Test Comment." }
+    assert_response :redirect
     assert_redirected_to "/posts/index"
     follow_redirect!
     assert_template "posts/index"
   end
 
   test "post destroy after login" do
-    login
-    post "/posts/1/destroy"
+    login(:one)
+    post "/posts/#{@post.id}/destroy"
+    assert_response :redirect
     assert_redirected_to "/posts/index"
     follow_redirect!
     assert_template "posts/index"
