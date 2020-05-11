@@ -3,9 +3,9 @@ class RepliesController < ApplicationController
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def create
-    @reply = Reply.new(user_id: @current_user.id, post_id: params[:id], comment: params[:comment])
+    @reply = Reply.new(user_id: @current_user.id, post_id: params[:post_id], comment: params[:comment])
     @reply.save
-    redirect_to("/posts/#{params[:id]}")
+    redirect_to("/posts/#{params[:post_id]}")
   end
 
   def edit

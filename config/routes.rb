@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get "replies/:id/edit" => "replies#edit"
 
-  post "replies/:id/create" => "replies#create"
+  post "replies/:post_id/create" => "replies#create"
   post "replies/:id/update" => "replies#update"
   post "replies/:id/destroy" => "replies#destroy"
 

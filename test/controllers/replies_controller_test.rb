@@ -15,7 +15,7 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
     assert_template "users/login_form"
   end
 
-  test "reply create before login" do
+  test "post create before login" do
     post "/replies/#{@post.id}/create", params: { comment: "Test Comment." }
     assert_response :redirect
     assert_redirected_to "/login"
@@ -23,7 +23,7 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
     assert_template "users/login_form"
   end
 
-  test "reply update before login" do
+  test "post update before login" do
     post "/replies/#{@reply.id}/update", params: { comment: "Test Comment." }
     assert_response :redirect
     assert_redirected_to "/login"
@@ -31,7 +31,7 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
     assert_template "users/login_form"
   end
 
-  test "reply destroy before login" do
+  test "post destroy before login" do
     post "/replies/#{@reply.id}/destroy"
     assert_response :redirect
     assert_redirected_to "/login"
