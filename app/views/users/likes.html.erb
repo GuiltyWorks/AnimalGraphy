@@ -17,23 +17,22 @@
     </ul>
 
     <% @likes.each do |like| %>
-    <% post = Post.find_by(id: like.post_id) %>
     <div class="posts-index-item">
       <div class="post-head">
-        <a href="<%= "/users/#{post.user_id}" %>">
-          <img src="<%= "/user_images/#{post.user.image_name}" %>">
-          <p><%= post.user.name %></p>
+        <a href="<%= "/users/#{like.post.user_id}" %>">
+          <img src="<%= "/user_images/#{like.post.user.image_name}" %>">
+          <p><%= like.post.user.name %></p>
         </a>
       </div>
       <div class="post-body">
         <a href="<%= "/posts/#{post.id}" %>">
           <img src="<%= "/post_images/#{post.id}.jpg" %>">
           <p>
-            <%= post.comment %>
+            <%= like.post.comment %>
           </p>
         </a>
         <div class="tag">
-          <% tag = Tag.find_by(post_id: post.id) %>
+          <% tag = Tag.find_by(post_id: like.post.id) %>
           <% if tag.bird %><%= link_to("bird", "/posts/tags/bird") %><% end %>
           <% if tag.cat %><%= link_to("cat", "/posts/tags/cat") %><% end %>
           <% if tag.dog %><%= link_to("dog", "/posts/tags/dog") %><% end %>

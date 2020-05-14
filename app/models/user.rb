@@ -7,9 +7,7 @@ class User < ApplicationRecord
   validates :email, { presence: true, uniqueness: true }
   validates :image_name, { presence: true }
 
-  def posts
-    return Post.where(user_id: self.id).order(created_at: :desc)
-  end
+  has_many :posts
 
   def self.digest(pwd)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

@@ -10,7 +10,9 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * ログイン・ログアウト機能
 
-* 写真・コメント投稿機能
+* 写真・コメント・リプライ投稿機能
+
+* いいね機能
 
 * 投稿編集機能
 
@@ -30,7 +32,7 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * データベース : MySQL 5.7
 
-* 実行・開発環境 : Docker
+* 実行・開発環境 : Docker Docker-Compose
 
 * 運用環境 : AWS EC2
 
@@ -44,11 +46,15 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 `docker-compose down`
 
+ビルド
+
+`docker-compose build`
+
 データベースの作成
 
 `docker-compose run web rails db:create`
 `docker-compose run web rails db:migrate`
 
-※学習済みモデルとラベルファイルをダウンロードし、public/object_detectionディレクトリ内に配置
+※学習済みモデルをダウンロードし、public/object_detectionディレクトリ内に配置
 
 ダウンロード : https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov3

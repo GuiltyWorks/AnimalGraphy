@@ -21,6 +21,8 @@
 /yarn-error.log
 
 /public/object_detection/*
+!/public/object_detection/coco-labels-2014_2017.txt
+
 /public/assets
 .byebug_history
 

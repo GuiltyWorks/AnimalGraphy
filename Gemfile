@@ -76,3 +76,7 @@ gem 'rails-controller-testing'
 # jQuery for Rails
 # https://github.com/rails/jquery-rails
 gem 'jquery-rails'
+
+# Centralization of locale data collection
+# https://github.com/svenfuchs/rails-i18n
+gem 'rails-i18n'
