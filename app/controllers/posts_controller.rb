@@ -146,7 +146,6 @@ class PostsController < ApplicationController
 
       # 判定結果が動物かつ確率が50%以上の場合のみ検出扱い
       if animals.include?(label) && score > 0.5
-        puts label
         result.push(label)
       end
     end

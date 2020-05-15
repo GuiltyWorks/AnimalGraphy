@@ -5,7 +5,7 @@
   <title>AnimalGraphy</title>
   <%= csrf_meta_tags %>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
@@ -20,10 +20,10 @@
     <ul class="header-menus">
       <% if @current_user %>
       <li>
-        <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
+        <%= link_to("アカウント : #{@current_user.name}", "/users/#{@current_user.id}") %>
       </li>
       <li>
-        <%= link_to("投稿一覧", "/posts/index") %>
+        <%= link_to("タイムライン", "/posts/index") %>
       </li>
       <li>
         <%= link_to("新規投稿", "/posts/new") %>
@@ -36,10 +36,7 @@
       </li>
       <% else %>
       <li>
-        <%= link_to("AnimalGraphyとは", "/about") %>
-      </li>
-      <li>
-        <%= link_to("投稿一覧", "/posts/index") %>
+        <%= link_to("タイムライン", "/posts/index") %>
       </li>
       <li>
         <%= link_to("ユーザー一覧", "/users/index") %>
