@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "home#top"
 
+  get "/news/:key" => "news#index"
+
   get "replies/:id/edit" => "replies#edit"
 
   post "replies/:post_id/create" => "replies#create"

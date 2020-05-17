@@ -1,0 +1,30 @@
+<div class="main news-index">
+  <div class="container">
+    <ul class="news-tabs">
+      <li class="<%= @active_list[:general] %>"><%= link_to("動物", "/news/general") %></li>
+      <li class="<%= @active_list[:bird] %>"><%= link_to("トリ", "/news/bird") %></li>
+      <li class="<%= @active_list[:cat] %>"><%= link_to("ネコ", "/news/cat") %></li>
+      <li class="<%= @active_list[:dog] %>"><%= link_to("イヌ", "/news/dog") %></li>
+      <li class="<%= @active_list[:horse] %>"><%= link_to("ウマ", "/news/horse") %></li>
+      <li class="<%= @active_list[:sheep] %>"><%= link_to("ヒツジ", "/news/sheep") %></li>
+      <li class="<%= @active_list[:cow] %>"><%= link_to("ウシ", "/news/cow") %></li>
+      <li class="<%= @active_list[:elephant] %>"><%= link_to("ゾウ", "/news/elephant") %></li>
+      <li class="<%= @active_list[:bear] %>"><%= link_to("クマ", "/news/bear") %></li>
+      <li class="<%= @active_list[:zebra] %>"><%= link_to("シマウマ", "/news/zebra") %></li>
+      <li class="<%= @active_list[:giraffe] %>"><%= link_to("キリン", "/news/giraffe") %></li>
+    </ul>
+
+    <div class="news-index-items">
+      <% for i in 0..23 %>
+      <div class="news-index-item">
+        <div class="news-body">
+          <a href="<%= @urls[i] %>" target="_blank" rel="noopener noreferrer">
+            <img src="<%= @images[i] %>">
+            <p><%= @titles[i] %></p>
+          </a>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,16 @@
 // --------All--------
+// post-index-item
+.posts-index-item {
+  background-color: white;
+  box-shadow: 0 2px 6px #d1d1d1;
+  overflow: hidden;
+  align-self: center;
+  justify-self: center;
+  width: 500px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
 // post-head
 .post-head {
   float: left;
@@ -133,15 +145,8 @@
   }
 }
 
-.posts-index-item {
-  background-color: white;
-  box-shadow: 0 2px 6px #d1d1d1;
-  overflow: hidden;
-  align-self: center;
-  justify-self: center;
-  width: 500px;
-  padding: 20px;
-  margin-bottom: 10px;
+.posts-index .posts-index-item {
+  margin-bottom: 0px;
 }
 
 .posts-index-item .post-body img {
