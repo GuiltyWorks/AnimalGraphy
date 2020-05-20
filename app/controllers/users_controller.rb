@@ -66,6 +66,10 @@ class UsersController < ApplicationController
     @tags.each do |tag|
       tag.destroy
     end
+    @likes = Like.where(user_id: params[:id])
+    @likes.each do |like|
+      like.destroy
+    end
     @replies = Reply.where(user_id: params[:id])
     @replies.each do |reply|
       reply.destroy
