@@ -39,13 +39,11 @@ class PostsController < ApplicationController
     @post = Post.new(
       comment: params[:comment],
       user_id: @current_user.id,
+      image_name: params[:image]
     )
 
-    if params[:image] && @post.save
-      image = params[:image]
-      File.binwrite("public/post_images/#{@post.id}.jpg", image.read)
-
-      detection_result = detection("public/post_images/#{@post.id}.jpg")
+    if @post.save
+      detection_result = detection("public#{@post.image_name}")
 
       @tag = Tag.new(post_id: @post.id)
       detection_result.each do |tag|
@@ -68,13 +66,13 @@ class PostsController < ApplicationController
   def update
     @post = Post.find_by(id: params[:id])
     @post.comment = params[:comment]
+    if params[:image]
+      @post.image_name = params[:image]
+    end
 
     if @post.save
       if params[:image]
-        image = params[:image]
-        File.binwrite("public/post_images/#{@post.id}.jpg", image.read)
-
-        detection_result = detection("public/post_images/#{@post.id}.jpg")
+        detection_result = detection("public#{@post.image_name}")
 
         @tag = Tag.find_by(post_id: @post.id)
         detection_result.each do |tag|
@@ -85,7 +83,7 @@ class PostsController < ApplicationController
       end
 
       flash[:notice] = "投稿を編集しました"
-      redirect_to("/posts/index")
+      redirect_to("/posts/#{@post.id}")
     else
       render("posts/edit")
     end

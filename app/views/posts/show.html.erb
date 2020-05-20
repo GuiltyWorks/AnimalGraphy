@@ -3,12 +3,12 @@
     <div class="posts-show-item">
       <div class="post-head">
         <a href="<%= "/users/#{@post.user_id}" %>">
-          <img src="<%= "/user_images/#{@post.user.image_name}" %>">
+          <img src="<%= @post.user.image_name %>">
           <p><%= @post.user.name %></p>
         </a>
       </div>
       <div class="post-body">
-        <img src="<%= "/post_images/#{@post.id}.jpg" %>">
+        <img src="<%= @post.image_name %>">
         <p>
           <%= @post.comment %>
         </p>
@@ -76,7 +76,7 @@
     <div class="posts-show-item">
       <div class="reply-head">
         <a href="<%= "/users/#{reply.user_id}" %>">
-          <img src="<%= "/user_images/#{reply.user.image_name}" %>">
+          <img src="<%= reply.user.image_name %>">
           <p><%= reply.user.name %></p>
         </a>
       </div>

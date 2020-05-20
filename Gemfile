@@ -88,4 +88,3 @@ gem 'nokogiri'
 # This gem provides a simple and extremely flexible way to upload files from Ruby applications.
 # https://github.com/carrierwaveuploader/carrierwave
 gem 'carrierwave'
-

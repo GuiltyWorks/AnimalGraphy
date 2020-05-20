@@ -4,13 +4,16 @@ one:
   id: 1
   user_id: 1
   comment: "I Love Birds."
+  image_name: <%= File.join(Rails.root, 'test/fixtures/files/bird.jpg') %>
 
 two:
   id: 2
   user_id: 2
   comment: "I Adore Cats."
+  image_name: <%= File.join(Rails.root, 'test/fixtures/files/cat.jpg') %>
 
 three:
   id: 3
   user_id: 3
   comment: "I Like Dogs."
+  image_name: <%= File.join(Rails.root, 'test/fixtures/files/dog.jpg') %>

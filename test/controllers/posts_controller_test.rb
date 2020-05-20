@@ -43,7 +43,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "post update before login" do
-    post "/posts/#{@post.id}/update", params: { comment: "Test Comment." }
+    post "/posts/#{@post.id}/update", params: { comment: "Test Comment.", image: fixture_file_upload("test/fixtures/files/cat.jpg") }, headers: { 'content-type': "multipart/form-data" }
     assert_response :redirect
     assert_redirected_to "/login"
     follow_redirect!
@@ -98,11 +98,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "post update after login" do
     login(:one)
-    post "/posts/#{@post.id}/update", params: { comment: "Test Comment." }
+    post "/posts/#{@post.id}/update", params: { comment: "Test Comment.", image: fixture_file_upload("test/fixtures/files/cat.jpg") }, headers: { 'content-type': "multipart/form-data" }
     assert_response :redirect
-    assert_redirected_to "/posts/index"
+    assert_redirected_to "/posts/#{@post.id}"
     follow_redirect!
-    assert_template "posts/index"
+    assert_template "posts/show"
   end
 
   test "post destroy after login" do

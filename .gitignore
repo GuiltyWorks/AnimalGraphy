@@ -26,6 +26,11 @@
 /public/assets
 .byebug_history
 
+/public/uploads/post/image_name/*
+/public/uploads/user/image_name/*
+/public/uploads/tmp/*
+!/public/uploads/tmp/.keep
+
 /public/post_images/*
 !/public/post_images/1.jpg
 !/public/post_images/2.jpg
