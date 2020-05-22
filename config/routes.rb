@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "home#top"
 
+  get "/zoo" => "zoo#index"
+
   get "/news/:key" => "news#index"
 
   get "replies/:id/edit" => "replies#edit"
