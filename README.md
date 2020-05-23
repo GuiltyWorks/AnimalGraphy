@@ -32,9 +32,9 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * データベース : MySQL 5.7
 
-* 実行・開発環境 : Docker, Docker-Compose
+* 実行・開発環境 : Docker, Docker Compose
 
-* 運用環境 : AWS(EC2, VPC, ELB, Route53, IAM)
+* 運用環境 : AWS(EC2, VPC, ELB, Route53, Certificate Manager, IAM)
 
 ## 実行方法
 
