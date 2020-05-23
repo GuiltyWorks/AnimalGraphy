@@ -14,17 +14,17 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * いいね機能
 
-* 投稿編集機能
+* 投稿編集・削除機能
 
-* 投稿削除機能
+* ニュース・近くの動物園表示機能
 
 ## 環境
 
 * 言語 : Ruby 2.7.1
 
-* WEBフレームワーク : Ruby on Rails 5.2.4.2
+* WEBフレームワーク : Ruby on Rails 5.2.4.3
 
-* テスト環境 : Minitest 5.14.0
+* テスト環境 : Minitest 5.14.1
 
 * 学習済みモデル : YOLOv3
 
@@ -32,9 +32,9 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * データベース : MySQL 5.7
 
-* 実行・開発環境 : Docker Docker-Compose
+* 実行・開発環境 : Docker, Docker-Compose
 
-* 運用環境 : AWS EC2
+* 運用環境 : AWS(EC2, VPC, ELB, Route53, IAM)
 
 ## 実行方法
 
