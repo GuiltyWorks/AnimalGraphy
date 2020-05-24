@@ -39,6 +39,19 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework, Minitest.
+  # https://github.com/rspec/rspec-rails
+  gem 'rspec-rails'
+
+  # factory_bot is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances,
+  # attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
+  # https://github.com/thoughtbot/factory_bot_rails
+  gem 'factory_bot_rails'
+  
+  # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
+  # https://github.com/rails/rails-controller-testing
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -68,10 +81,6 @@ gem 'numo-narray'
 # The high performance scoring engine for ML models 
 # https://github.com/ankane/onnxruntime
 gem 'onnxruntime'
-
-# This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
-# https://github.com/rails/rails-controller-testing
-gem 'rails-controller-testing'
 
 # jQuery for Rails
 # https://github.com/rails/jquery-rails
