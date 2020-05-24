@@ -51,7 +51,7 @@ class NewsController < ApplicationController
     end
     @titles = titles
 
-    images = doc.xpath("//figure[@class='AZtY5d fvuwob MbMxpc d7hoq']/img").map do |image|
+    images = doc.xpath("//img[@class='tvs3Id QwxBBf']").map do |image|
       image.attr("src")
     end
     @images = images
