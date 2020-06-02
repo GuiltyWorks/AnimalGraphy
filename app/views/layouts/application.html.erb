@@ -18,9 +18,9 @@
       <%= link_to("AnimalGraphy", "/posts/index") %>
     </div>
     <ul class="header-menus">
-      <% if @current_user %>
+      <% if user_signed_in? %>
       <li>
-        <%= link_to("アカウント : #{@current_user.name}", "/users/#{@current_user.id}") %>
+        <%= link_to("アカウント : #{current_user.name}", "/users/#{current_user.id}") %>
       </li>
       <li>
         <%= link_to("新規投稿", "/posts/new") %>
@@ -38,7 +38,7 @@
         <%= link_to("ユーザー", "/users/index") %>
       </li>
       <li>
-        <%= link_to("ログアウト", "/logout", {method: :post}) %>
+        <%= link_to("ログアウト", destroy_user_session_path, method: :delete) %>
       </li>
       <% else %>
       <li>
@@ -54,10 +54,10 @@
         <%= link_to("ユーザー", "/users/index") %>
       </li>
       <li>
-        <%= link_to("新規登録", "/signup") %>
+        <%= link_to("新規登録", new_user_registration_path) %>
       </li>
       <li>
-        <%= link_to("ログイン", "/login") %>
+        <%= link_to("ログイン", new_user_session_path) %>
       </li>
       <% end %>
     </ul>
@@ -66,6 +66,11 @@
   <% if flash[:notice] %>
   <div class="flash">
     <%= flash[:notice] %>
+  </div>
+  <% end %>
+  <% if flash[:alert] %>
+  <div class="flash">
+    <%= flash[:alert] %>
   </div>
   <% end %>
 

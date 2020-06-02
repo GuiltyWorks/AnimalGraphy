@@ -3,7 +3,7 @@ require "numo/narray"
 require "onnxruntime"
 
 class PostsController < ApplicationController
-  before_action :authenticate_user, { only: [:new, :create, :edit, :update, :destroy] }
+  before_action :authenticate_user!, { only: [:new, :create, :edit, :update, :destroy] }
   before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
 
   def index
@@ -38,8 +38,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(
       comment: params[:comment],
-      user_id: @current_user.id,
-      image_name: params[:image]
+      user_id: current_user.id,
+      image_name: params[:image],
     )
 
     if @post.save
@@ -105,7 +105,7 @@ class PostsController < ApplicationController
 
   def ensure_correct_user
     @post = Post.find_by(id: params[:id])
-    if @post.user_id != @current_user.id
+    if @post.user_id != current_user.id
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end

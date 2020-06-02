@@ -4,9 +4,9 @@
       <img src="<%= @user.image_name %>">
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <% if @current_user %>
-      <% if @user.id == @current_user.id %>
-      <%= link_to("編集", "/users/#{@user.id}/edit") %>
+      <% if current_user %>
+      <% if @user.id == current_user.id %>
+      <%= link_to("編集", "/users/edit") %>
       <% end %>
       <% end %>
     </div>
@@ -33,6 +33,7 @@
         </a>
         <div class="tag">
           <% tag = Tag.find_by(post_id: post.id) %>
+          <% if tag %>
           <% if tag.bird %><%= link_to("bird", "/posts/tags/bird") %><% end %>
           <% if tag.cat %><%= link_to("cat", "/posts/tags/cat") %><% end %>
           <% if tag.dog %><%= link_to("dog", "/posts/tags/dog") %><% end %>
@@ -43,6 +44,7 @@
           <% if tag.bear %><%= link_to("bear", "/posts/tags/bear") %><% end %>
           <% if tag.zebra %><%= link_to("zebra", "/posts/tags/zebra") %><% end %>
           <% if tag.giraffe %><%= link_to("giraffe", "/posts/tags/giraffe") %><% end %>
+          <% end %>
         </div>
       </div>
     </div>

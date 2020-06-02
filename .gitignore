@@ -38,5 +38,7 @@
 /public/user_images/*
 !/public/user_images/default.jpg
 
+/spec/support/login_macros.rb
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key

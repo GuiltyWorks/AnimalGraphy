@@ -243,6 +243,10 @@ header {
     min-height: 110px;
 }
 
+.form-body input[type="checkbox"] {
+    width: auto;
+}
+
 .form-body input[type="submit"] {
     color: white;
     background-color: #0080ff;
@@ -263,7 +267,7 @@ header {
 // --------Flash--------
 .flash {
     color: white;
-    background: #10c000;
+    background: #7e7e7e;
     font-size: 18px;
     font-weight: bold;
     text-align: center;

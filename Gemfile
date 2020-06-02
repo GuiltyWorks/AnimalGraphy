@@ -52,6 +52,14 @@ group :development, :test do
   # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
   # https://github.com/rails/rails-controller-testing
   gem 'rails-controller-testing'
+
+  # RackSessionAccess provides rack middleware for 'rack.session' environment management.
+  # https://github.com/railsware/rack_session_access
+  gem 'rack_session_access'
+
+  # Database Cleaner is a set of gems containing strategies for cleaning your database in Ruby.
+  # https://github.com/DatabaseCleaner/database_cleaner
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -101,3 +109,11 @@ gem 'carrierwave'
 # Complete geocoding solution for Ruby.
 # https://github.com/alexreisner/geocoder
 gem 'geocoder'
+
+# Devise is a flexible authentication solution for Rails based on Warden.
+# https://github.com/heartcombo/devise
+gem 'devise'
+
+# This gem contains the Twitter strategy for OmniAuth
+# https://github.com/arunagw/omniauth-twitter
+gem 'omniauth-twitter'

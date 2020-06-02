@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root "home#top"
+  root "posts#index"
+
+  devise_for :users, controllers: { :omniauth_callbacks => "omniauth_callbacks" }
 
   get "/zoo" => "zoo#index"
 
@@ -17,17 +19,17 @@ Rails.application.routes.draw do
   post "login" => "users#login"
   post "logout" => "users#logout"
 
-  get "login" => "users#login_form"
-  get "signup" => "users#new"
+  #get "login" => "users#login_form"
+  #get "signup" => "users#new"
   get "users/index" => "users#index"
-  get "users/:id/edit" => "users#edit"
-  get "users/:id/delete" => "users#delete"
+  #get "users/:id/edit" => "users#edit"
+  #get "users/:id/delete" => "users#delete"
   get "users/:id/likes" => "users#likes"
   get "users/:id" => "users#show"
 
-  post "users/create" => "users#create"
-  post "users/:id/update" => "users#update"
-  post "users/:id/destroy" => "users#destroy"
+  #post "users/create" => "users#create"
+  #post "users/:id/update" => "users#update"
+  #post "users/:id/destroy" => "users#destroy"
 
   get "posts/index" => "posts#index"
   get "posts/new" => "posts#new"
@@ -39,6 +41,6 @@ Rails.application.routes.draw do
   post "posts/:id/update" => "posts#update"
   post "posts/:id/destroy" => "posts#destroy"
 
-  get "/" => "home#top"
+  get "/" => "posts#index"
   get "/about" => "home#about"
 end

@@ -4,6 +4,10 @@ class Reply < ApplicationRecord
   validates :comment, { presence: true, length: { maximum: 1000 } }
 
   def user
-    return User.find_by(id: self.user_id)
+    return User.find_by(id: user_id)
+  end
+
+  def post
+    return Post.find_by(id: post_id)
   end
 end
