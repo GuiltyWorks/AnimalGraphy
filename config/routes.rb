@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   root "posts#index"
 
-  devise_for :users, controllers: { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_scope :user do
+    post "users/sign_in_with_guest" => "users/sessions#new_guest"
+  end
+
+  devise_for :users, controllers: {
+            :registrations => "users/registrations",
+            :omniauth_callbacks => "omniauth_callbacks",
+          }
 
   get "/zoo" => "zoo#index"
 

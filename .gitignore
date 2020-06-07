@@ -26,6 +26,7 @@
 /public/assets
 .byebug_history
 
+/public/uploads_test/*
 /public/uploads/post/image_name/*
 /public/uploads/user/image_name/*
 /public/uploads/tmp/*

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="form">
       <div class="form-body">
-        <h2>Resend unlock instructions</h2>
+        <h2>アカウントの凍結解除方法の再送</h2>
 
         <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
@@ -13,7 +13,7 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "Resend unlock instructions" %>
+          <%= f.submit "送信" %>
         </div>
         <% end %>
       </div>

@@ -21,11 +21,15 @@
         <% end %>
 
         <div class="actions">
-          <%= f.submit "Log in" %>
+          <%= f.submit "ログイン" %>
         </div>
         <% end %>
-
       </div>
+
+      <div class="guest">
+        <%= link_to("ゲストアカウントでログイン", "/users/sign_in_with_guest", {method: "post", class: "guest-login"}) %>
+      </div>
+
       <div class="devise-links">
         <%= render "devise/shared/links" %>
       </div>

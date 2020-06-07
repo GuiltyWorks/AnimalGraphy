@@ -12,3 +12,31 @@
 .devise .container .form .form-body input {
     margin-bottom: 10px;
 }
+
+.devise .container .form .delete {
+    text-align: center;
+    clear: right;
+    margin: 100px auto 0;
+    transition-duration: 0.25s;
+}
+
+
+.devise .container .form .delete input {
+    font-size: 16px;
+    color: red;
+}
+
+.devise .container .form .delete a {
+    font-size: 16px;
+}
+
+.devise .container .form .delete *:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+.devise .container .form .guest {
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+}
