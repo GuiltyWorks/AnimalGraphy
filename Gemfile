@@ -90,6 +90,10 @@ gem 'numo-narray'
 # https://github.com/ankane/onnxruntime
 gem 'onnxruntime'
 
+# Ruby-FFI is a gem for programmatically loading dynamically-linked native libraries, binding functions within them, and calling those functions from Ruby code.
+# https://github.com/ffi/ffi
+gem 'ffi', '>= 1.12.2', '< 1.13.0'
+
 # jQuery for Rails
 # https://github.com/rails/jquery-rails
 gem 'jquery-rails'

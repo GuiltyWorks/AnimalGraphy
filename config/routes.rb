@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: {
-            :registrations => "users/registrations",
-            :omniauth_callbacks => "omniauth_callbacks",
-          }
+                       :registrations => "users/registrations",
+                       :omniauth_callbacks => "omniauth_callbacks",
+                     }
 
   get "/zoo" => "zoo#index"
 
@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   #post "users/:id/destroy" => "users#destroy"
 
   get "posts/index" => "posts#index"
+  get "posts/search" => "posts#search"
+  get "posts/ranking/:period" => "posts#ranking"
   get "posts/new" => "posts#new"
   get "posts/tags/:tag" => "posts#tags"
   get "posts/:id/edit" => "posts#edit"

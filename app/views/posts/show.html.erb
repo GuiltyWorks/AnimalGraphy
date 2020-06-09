@@ -13,22 +13,22 @@
           <%= @post.comment %>
         </p>
         <div class="tag clearfix">
-          <% if @tag.bird %><%= link_to("bird", "/posts/tags/bird") %><% end %>
-          <% if @tag.cat %><%= link_to("cat", "/posts/tags/cat") %><% end %>
-          <% if @tag.dog %><%= link_to("dog", "/posts/tags/dog") %><% end %>
-          <% if @tag.horse %><%= link_to("horse", "/posts/tags/horse") %><% end %>
-          <% if @tag.sheep %><%= link_to("sheep", "/posts/tags/sheep") %><% end %>
-          <% if @tag.cow %><%= link_to("cow", "/posts/tags/cow") %><% end %>
-          <% if @tag.elephant %><%= link_to("elephant", "/posts/tags/elephant") %><% end %>
-          <% if @tag.bear %><%= link_to("bear", "/posts/tags/bear") %><% end %>
-          <% if @tag.zebra %><%= link_to("zebra", "/posts/tags/zebra") %><% end %>
-          <% if @tag.giraffe %><%= link_to("giraffe", "/posts/tags/giraffe") %><% end %>
+          <% if @post.tag.bird %><%= link_to("トリ", "/posts/tags/bird") %><% end %>
+          <% if @post.tag.cat %><%= link_to("ネコ", "/posts/tags/cat") %><% end %>
+          <% if @post.tag.dog %><%= link_to("イヌ", "/posts/tags/dog") %><% end %>
+          <% if @post.tag.horse %><%= link_to("ウマ", "/posts/tags/horse") %><% end %>
+          <% if @post.tag.sheep %><%= link_to("ヒツジ", "/posts/tags/sheep") %><% end %>
+          <% if @post.tag.cow %><%= link_to("ウシ", "/posts/tags/cow") %><% end %>
+          <% if @post.tag.elephant %><%= link_to("ゾウ", "/posts/tags/elephant") %><% end %>
+          <% if @post.tag.bear %><%= link_to("クマ", "/posts/tags/bear") %><% end %>
+          <% if @post.tag.zebra %><%= link_to("シマウマ", "/posts/tags/zebra") %><% end %>
+          <% if @post.tag.giraffe %><%= link_to("キリン", "/posts/tags/giraffe") %><% end %>
         </div>
         <div class="post-time">
           <%= @post.created_at %>
         </div>
 
-        <% if current_user %>
+        <% if user_signed_in? %>
         <% if Like.find_by(user_id: current_user.id, post_id: @post.id) %>
         <%= link_to("/likes/#{@post.id}/destroy", {method: "post"}) do %>
         <span class="fa fa-heart like-btn-unlike"></span>
@@ -42,9 +42,9 @@
         <span class="fa fa-heart like-btn-no-hover"></span>
         <% end %>
         <p class="likes-count">
-          <%= @likes_count %>
+          <%= Like.where(post_id: @post.id).count %>
         </p>
-        <% if current_user %>
+        <% if user_signed_in? %>
         <% if @post.user_id == current_user.id %>
         <div class="post-menus">
           <%= link_to("編集", "/posts/#{@post.id}/edit") %>
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <% if current_user %>
+    <% if user_signed_in? %>
     <div class="posts-show-item">
       <%= form_tag("/replies/#{@post.id}/create", {multipart: true}) do %>
       <div class="form-body">

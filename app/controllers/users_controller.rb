@@ -38,10 +38,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
-
-    if params[:image]
-      @user.image_name = params[:image]
-    end
+    @user.image_name = params[:image] if params[:image]
 
     if @user.save
       flash[:notice] = "ユーザー情報を編集しました"
