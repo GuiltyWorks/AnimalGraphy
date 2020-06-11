@@ -1,11 +1,16 @@
 FROM ruby:2.7
 
-RUN apt update -qq \
-    && apt install -y build-essential libpq-dev nodejs imagemagick \
-    && mkdir /AnimalGraphy
+RUN mkdir /AnimalGraphy
+ENV APP_ROOT /AnimalGraphy
+WORKDIR $APP_ROOT
 
-WORKDIR /AnimalGraphy
-ADD Gemfile /AnimalGraphy/Gemfile
-ADD Gemfile.lock /AnimalGraphy/Gemfile.lock
-RUN bundle install
-ADD . /AnimalGraphy
+COPY ./Gemfile $APP_ROOT/Gemfile
+COPY ./Gemfile.lock $APP_ROOT/Gemfile.lock
+
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y build-essential libpq-dev nodejs imagemagick && \
+    gem install bundler && \
+    bundle install
+
+COPY . $APP_ROOT
