@@ -92,8 +92,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
 
     # Remove uploaded files after running rspec
-    if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"])
-    end
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"]) if Rails.env.test?
   end
 end

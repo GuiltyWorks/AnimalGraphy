@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, { only: [:edit, :update, :delete, :destroy] }
-  before_action :forbid_login_user, { only: [:new, :create, :login_form, :login] }
-  before_action :ensure_correct_user, { only: [:edit, :update, :delete, :destroy] }
+  before_action :authenticate_user!, { only: [ :edit, :update, :delete, :destroy ] }
+  before_action :forbid_login_user, { only: [ :new, :create, :login_form, :login ] }
+  before_action :ensure_correct_user, { only: [ :edit, :update, :delete, :destroy ] }
 
   def index
     @users = User.all
@@ -56,21 +56,13 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.destroy
     @posts = Post.where(user_id: params[:id])
-    @posts.each do |post|
-      post.destroy
-    end
+    @posts.each(&:destroy)
     @tags = Post.where(user_id: params[:id])
-    @tags.each do |tag|
-      tag.destroy
-    end
+    @tags.each(&:destroy)
     @likes = Like.where(user_id: params[:id])
-    @likes.each do |like|
-      like.destroy
-    end
+    @likes.each(&:like)
     @replies = Reply.where(user_id: params[:id])
-    @replies.each do |reply|
-      reply.destroy
-    end
+    @replies.each(&:destroy)
     flash[:notice] = "アカウントを削除しました"
     redirect_to("/posts/index")
   end
@@ -80,7 +72,7 @@ class UsersController < ApplicationController
 
   def login
     @user = User.find_by(email: params[:email])
-    if @user && @user.authenticate(params[:password])
+    if @user&.authenticate(params[:password])
       session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to("/posts/index")

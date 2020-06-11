@@ -1,6 +1,3 @@
-require "nokogiri"
-require "open-uri"
-
 class NewsController < ApplicationController
   def index
     @active_list = {
@@ -34,7 +31,7 @@ class NewsController < ApplicationController
 
     url = url_list[params[:key].to_sym]
     charset = nil
-    html = open(url) do |f|
+    html = OpenURI.open_uri(url) do |f|
       charset = f.charset
       f.read
     end
@@ -46,9 +43,7 @@ class NewsController < ApplicationController
       "https://news.google.com" + link.attr("href").slice(1, link.attr("href").length - 1)
     end
     @urls = urls
-    titles = links.map do |link|
-      link.text
-    end
+    titles = links.map(&:text)
     @titles = titles
 
     images = doc.xpath("//img[@class='tvs3Id QwxBBf']").map do |image|

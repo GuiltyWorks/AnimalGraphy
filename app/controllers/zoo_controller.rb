@@ -1,8 +1,3 @@
-require "geocoder"
-require "net/https"
-require "uri"
-require "json"
-
 class ZooController < ApplicationController
   def index
     coordinates = Geocoder.search(request.remote_ip).first.coordinates
@@ -23,18 +18,18 @@ class ZooController < ApplicationController
     body = JSON.parse(response.body)
     results = body["results"]
 
-    results.each_with_index do |place, idx|
-      width, height, photo_reference, image_uri = "", "", "", ""
+    results.each do |place|
+      image_uri = ""
       if place["photos"]
         width = place["photos"][0]["width"]
-        height = place['photos'][0]['height']
-        photo_reference = place['photos'][0]['photo_reference']
+        height = place["photos"][0]["height"]
+        photo_reference = place["photos"][0]["photo_reference"]
         image_uri = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=#{width}&maxheight=#{height}&photoreference=#{photo_reference}&key=#{api_key}"
       end
       @zoos.push({
         image: image_uri,
         name: place["name"],
-        uri: "https://www.google.co.jp/maps/search/#{place['geometry']['location']['lat']},#{place['geometry']['location']['lng']}"
+        uri: "https://www.google.co.jp/maps/search/#{place['geometry']['location']['lat']},#{place['geometry']['location']['lng']}",
       })
     end
   end

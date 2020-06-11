@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
+  before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def create
     @reply = Reply.new(user_id: current_user.id, post_id: params[:post_id], comment: params[:comment])

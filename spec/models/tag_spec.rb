@@ -36,7 +36,7 @@ RSpec.describe Tag, type: :model do
       zebra: false,
       giraffe: false,
     )
-    expect(tag.valid?).to eq(true)
+    expect(tag_without_cat.valid?).to eq(true)
   end
 
   it "is valid without dog" do

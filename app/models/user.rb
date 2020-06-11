@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :trackable, :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: [:twitter]
+         :trackable, :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: [ :twitter ]
 
   validates :name, { presence: true }
   validates :email, { presence: true, uniqueness: true }

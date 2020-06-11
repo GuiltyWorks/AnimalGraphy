@@ -1,10 +1,6 @@
-require "mini_magick"
-require "numo/narray"
-require "onnxruntime"
-
 class PostsController < ApplicationController
-  before_action :authenticate_user!, { only: [:new, :create, :edit, :update, :destroy] }
-  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
+  before_action :authenticate_user!, { only: [ :new, :create, :edit, :update, :destroy ] }
+  before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def index
     @posts = Post.all.order(created_at: :desc)
@@ -13,59 +9,60 @@ class PostsController < ApplicationController
 
   def search
     if params[:keyword] == ""
-      redirect_to "/posts/index"
-    else
-      keywords = params[:keyword].split(/[[:blank:]]+/).select(&:present?)
-      negative_keywords, positive_keywords = keywords.partition { |keyword| keyword.start_with?("-") }
-      @posts = Post.none
-      positive_keywords.each do |keyword|
-        @posts = @posts.or(Post.where("comment LIKE ?", "%#{keyword}%"))
-      end
-      negative_keywords.each do |keyword|
-        @posts.where!("comment NOT LIKE ?", "%#{keyword.delete_prefix("-")}%")
-      end
-
-      @active_list = make_active_list(nil)
-      render("posts/index")
+      redirect_to("/posts/index")
+      return
     end
+
+    keywords = params[:keyword].split(/[[:blank:]]+/).select(&:present?)
+    negative_keywords, positive_keywords = keywords.partition { |keyword| keyword.start_with?("-") }
+    @posts = Post.none
+    positive_keywords.each do |keyword|
+      @posts = @posts.or(Post.where("comment LIKE ?", "%#{keyword}%"))
+    end
+    negative_keywords.each do |keyword|
+      @posts.where!("comment NOT LIKE ?", "%#{keyword.delete_prefix('-')}%")
+    end
+
+    @active_list = make_active_list(nil)
+    render("posts/index")
   end
 
   def ranking
-    periods = ["all", "monthly", "weekly", "daily"]
-    if !periods.include?(params[:period])
+    case params[:period]
+    when "monthly"
+      period = Date.today.in_time_zone.all_month
+      ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
+    when "weekly"
+      period = Date.today.in_time_zone.all_week
+      ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
+    when "daily"
+      period = Date.today.in_time_zone.all_day
+      ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
+    when "all"
+      ranking = Like.group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
+    else
       flash[:notice] = "ランキングが見つかりませんでした"
       redirect_to("/posts/index")
-    else
-      if params[:period] == "monthly"
-        period = Date.today.in_time_zone.all_month
-        ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
-      elsif params[:period] == "weekly"
-        period = Date.today.in_time_zone.all_week
-        ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
-      elsif params[:period] == "daily"
-        period = Date.today.in_time_zone.all_day
-        ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
-      elsif params[:period] == "all"
-        ranking = Like.group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
-      end
-
-      @posts = Post.find(ranking)
-      @active_list = make_active_list(params[:period].to_sym)
-      render("posts/index")
+      return
     end
+
+    @posts = Post.find(ranking)
+    @active_list = make_active_list(params[:period].to_sym)
+    render("posts/index")
   end
 
   def tags
     tag = params[:tag]
-    tags = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
-    if !tags.include?(tag)
+    tags = [ "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe" ]
+    unless tags.include?(tag)
       flash[:notice] = "タグが見つかりませんでした"
       redirect_to("/posts/index")
-    else
-      @posts = Post.where(id: Tag.where(tag.to_sym => true).pluck(:post_id)).order(created_at: :desc)
-      @active_list = make_active_list(tag.to_sym)
-      render("posts/index")
+      return
     end
+
+    @posts = Post.where(id: Tag.where(tag.to_sym => true).pluck(:post_id)).order(created_at: :desc)
+    @active_list = make_active_list(tag.to_sym)
+    render("posts/index")
   end
 
   def show
@@ -136,9 +133,7 @@ class PostsController < ApplicationController
     @tag = Tag.find_by(post_id: params[:id])
     @tag.destroy
     @replies = Reply.where(post_id: params[:id])
-    @replies.each do |reply|
-      reply.destroy
-    end
+    @replies.each(&:destroy)
 
     flash[:notice] = "投稿を削除しました"
     redirect_to("/posts/index")
@@ -170,9 +165,7 @@ class PostsController < ApplicationController
       zebra: "inactive",
       giraffe: "inactive",
     }
-    if key
-      active_list[key] = "active"
-    end
+    active_list[key] = "active" if key
 
     return active_list
   end
@@ -182,7 +175,7 @@ class PostsController < ApplicationController
     labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt")
 
     img = MiniMagick::Image.open(img_name)
-    image_size = [[img.height, img.width]]
+    image_size = [ [ img.height, img.width ] ]
     img.combine_options do |b|
       b.resize "416x416"
       b.gravity "center"
@@ -201,7 +194,7 @@ class PostsController < ApplicationController
       { class: idx[1], score: scores[idx[0]][idx[1]][idx[2]], box: boxes[idx[0]][idx[2]] }
     end
 
-    animals = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
+    animals = [ "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe" ]
     result = []
 
     results.each do |r|

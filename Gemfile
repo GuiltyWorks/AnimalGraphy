@@ -38,7 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [ :mri, :mingw, :x64_mingw ]
 
   # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework, Minitest.
   # https://github.com/rspec/rspec-rails
@@ -48,7 +48,7 @@ group :development, :test do
   # attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
   # https://github.com/thoughtbot/factory_bot_rails
   gem 'factory_bot_rails'
-  
+
   # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
   # https://github.com/rails/rails-controller-testing
   gem 'rails-controller-testing'
@@ -69,6 +69,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter.
+  # https://github.com/rubocop-hq/rubocop
+  gem 'rubocop', require: false
+
+  # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
+  # https://github.com/rubocop-hq/rubocop-rails
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
@@ -80,13 +88,13 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
 
 # The Numerical N-dimensional Array class for fast processing and easy manipulation of multi-dimensional numerical data, similar to numpy.ndaray
 # https://github.com/ruby-numo/numo-narray
 gem 'numo-narray'
 
-# The high performance scoring engine for ML models 
+# The high performance scoring engine for ML models
 # https://github.com/ankane/onnxruntime
 gem 'onnxruntime'
 
