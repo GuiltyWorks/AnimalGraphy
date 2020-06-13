@@ -35,9 +35,9 @@
 
   <div class="sub-menu">
     <div class="sub-menu-item">
-      <%= form_tag("/posts/search", {method: "get"}) do %>
+      <%= form_tag("/posts/search", {method: "get", enforce_utf8: false}) do %>
       <%= text_field_tag(:keyword) %>
-      <%= submit_tag("検索") %>
+      <%= submit_tag("検索", name: nil) %>
       <% end %>
       <div class="topics">
         <h2>ランキング</h2>

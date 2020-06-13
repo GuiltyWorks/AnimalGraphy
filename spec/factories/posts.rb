@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :post do
-    sequence(:comment) { |n| "comment#{n}" }
+    sequence(:comment) { |n| "Test Comment #{n}" }
     sequence(:user_id) { |n| n }
     image_name { Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/files/cat.jpg")) }
     association :user

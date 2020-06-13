@@ -1,9 +1,25 @@
 require "rails_helper"
 
 RSpec.describe Tag, type: :model do
-  let(:tag) { create(:tag) }
-
   it "is valid with post_id and bird and cat and dog and horse and sheep and cow and elephant and bear and zebra and giraffe" do
+    tag = create(
+      :tag,
+      bird: true,
+      cat: false,
+      dog: false,
+      horse: false,
+      sheep: false,
+      cow: false,
+      elephant: false,
+      bear: false,
+      zebra: false,
+      giraffe: false,
+    )
+    expect(tag.valid?).to eq(true)
+  end
+
+  it "is valid without bird and cat and dog and horse and sheep and cow and elephant and bear and zebra and giraffe" do
+    tag = create(:tag)
     expect(tag.valid?).to eq(true)
   end
 

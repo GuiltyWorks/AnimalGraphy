@@ -29,6 +29,8 @@ class PostsController < ApplicationController
 
   def ranking
     case params[:period]
+    when "all"
+      ranking = Like.group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
     when "monthly"
       period = Date.today.in_time_zone.all_month
       ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
@@ -38,8 +40,6 @@ class PostsController < ApplicationController
     when "daily"
       period = Date.today.in_time_zone.all_day
       ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
-    when "all"
-      ranking = Like.group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
     else
       flash[:notice] = "ランキングが見つかりませんでした"
       redirect_to("/posts/index")

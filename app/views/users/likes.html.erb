@@ -4,8 +4,8 @@
       <img src="<%= @user.image_name %>">
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
-      <% if current_user %>
-      <% if @user.id == current_user.id %>
+      <% if user_signed_in? %>
+      <% if @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
       <%= link_to("編集", "/users/edit") %>
       <% end %>
       <% end %>
@@ -16,7 +16,7 @@
       <li class="active"><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
     </ul>
 
-    <% @likes.each do |like| %>
+    <% @user.likes.each do |like| %>
     <% post = Post.find_by(id: like.post_id) %>
     <div class="posts-index-item">
       <div class="post-head">
