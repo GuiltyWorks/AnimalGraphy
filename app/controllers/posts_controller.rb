@@ -66,7 +66,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
     @reply = Reply.new
     @replies = Reply.where(post_id: params[:id]).order(created_at: :desc)
   end
@@ -100,11 +100,11 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
     @post.comment = params[:comment]
     @post.image_name = params[:image] if params[:image]
 
@@ -128,7 +128,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
     @post.destroy
     @tag = Tag.find_by(post_id: params[:id])
     @tag.destroy
@@ -140,12 +140,14 @@ class PostsController < ApplicationController
   end
 
   def ensure_correct_user
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
     if @post.user_id != current_user.id
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end
   end
+
+  private
 
   def make_active_list(key)
     active_list = {

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
   end
 
   def new
@@ -31,11 +31,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
     @user.image_name = params[:image] if params[:image]
@@ -49,11 +49,11 @@ class UsersController < ApplicationController
   end
 
   def delete
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
   end
 
   def destroy
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     @posts = Post.where(user_id: params[:id])
     @posts.each(&:destroy)
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
   end
 
   def likes
-    @user = User.find_by(id: params[:id])
+    @user = User.find(params[:id])
   end
 
   def ensure_correct_user

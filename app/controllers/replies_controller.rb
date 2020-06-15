@@ -25,14 +25,14 @@ class RepliesController < ApplicationController
   end
 
   def destroy
-    @reply = Reply.find_by(id: params[:id])
+    @reply = Reply.find(params[:id])
     post_id = @reply.post_id
     @reply.destroy
     redirect_to("/posts/#{post_id}")
   end
 
   def ensure_correct_user
-    @reply = Reply.find_by(id: params[:id])
+    @reply = Reply.find(params[:id])
     if @reply.user_id != current_user.id
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
