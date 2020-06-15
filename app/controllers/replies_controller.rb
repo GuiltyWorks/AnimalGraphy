@@ -1,5 +1,6 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_target_reply, { only: [ :edit, :update, :destroy ] }
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def create
@@ -9,11 +10,9 @@ class RepliesController < ApplicationController
   end
 
   def edit
-    @reply = Reply.find_by(id: params[:id])
   end
 
   def update
-    @reply = Reply.find_by(id: params[:id])
     @reply.comment = params[:comment]
 
     if @reply.save
@@ -25,14 +24,18 @@ class RepliesController < ApplicationController
   end
 
   def destroy
-    @reply = Reply.find(params[:id])
     post_id = @reply.post_id
     @reply.destroy
     redirect_to("/posts/#{post_id}")
   end
 
-  def ensure_correct_user
+  private
+
+  def set_target_reply
     @reply = Reply.find(params[:id])
+  end
+
+  def ensure_correct_user
     if @reply.user_id != current_user.id
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")

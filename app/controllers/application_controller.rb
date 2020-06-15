@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def forbid_login_user
-    if current_user
+    if user_signed_in?
       flash[:notice] = "すでにログインしています"
       redirect_to("/posts/index")
     end

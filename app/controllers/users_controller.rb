@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, { only: [ :edit, :update, :delete, :destroy ] }
+  before_action :set_target_user, { only: [ :show, :edit, :update, :delete, :destroy, :likes ] }
   before_action :forbid_login_user, { only: [ :new, :create, :login_form, :login ] }
   before_action :ensure_correct_user, { only: [ :edit, :update, :delete, :destroy ] }
 
@@ -8,7 +9,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -31,11 +31,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     @user.name = params[:name]
     @user.email = params[:email]
     @user.image_name = params[:image] if params[:image]
@@ -49,11 +47,9 @@ class UsersController < ApplicationController
   end
 
   def delete
-    @user = User.find(params[:id])
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     @posts = Post.where(user_id: params[:id])
     @posts.each(&:destroy)
@@ -91,11 +87,16 @@ class UsersController < ApplicationController
   end
 
   def likes
+  end
+
+  private
+
+  def set_target_user
     @user = User.find(params[:id])
   end
 
   def ensure_correct_user
-    if @current_user.id != params[:id].to_i
+    if current_user.id != params[:id].to_i
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end
