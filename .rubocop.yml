@@ -15,6 +15,7 @@ AllCops:
     - "lib/**/*"
     - "test/**/*"
     - "config/route.rb"
+    - "public/**/*"
 
 # --------Layout--------
 Layout/CaseIndentation:
