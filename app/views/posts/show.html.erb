@@ -3,26 +3,19 @@
     <div class="posts-show-item">
       <div class="post-head">
         <a href="<%= "/users/#{@post.user_id}" %>">
-          <img src="<%= @post.user.image_name %>">
+          <img src="<%= @post.user.image %>">
           <p><%= @post.user.name %></p>
         </a>
       </div>
       <div class="post-body">
-        <img src="<%= @post.image_name %>">
+        <img src="<%= @post.image %>">
         <p>
           <%= @post.comment %>
         </p>
-        <div class="tag clearfix">
-          <% if @post.tag.bird %><%= link_to("トリ", "/posts/tags/bird") %><% end %>
-          <% if @post.tag.cat %><%= link_to("ネコ", "/posts/tags/cat") %><% end %>
-          <% if @post.tag.dog %><%= link_to("イヌ", "/posts/tags/dog") %><% end %>
-          <% if @post.tag.horse %><%= link_to("ウマ", "/posts/tags/horse") %><% end %>
-          <% if @post.tag.sheep %><%= link_to("ヒツジ", "/posts/tags/sheep") %><% end %>
-          <% if @post.tag.cow %><%= link_to("ウシ", "/posts/tags/cow") %><% end %>
-          <% if @post.tag.elephant %><%= link_to("ゾウ", "/posts/tags/elephant") %><% end %>
-          <% if @post.tag.bear %><%= link_to("クマ", "/posts/tags/bear") %><% end %>
-          <% if @post.tag.zebra %><%= link_to("シマウマ", "/posts/tags/zebra") %><% end %>
-          <% if @post.tag.giraffe %><%= link_to("キリン", "/posts/tags/giraffe") %><% end %>
+        <div class="tag">
+          <% @post.tags.each do |tag| %>
+          <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+          <% end %>
         </div>
         <div class="post-time">
           <%= @post.created_at %>
@@ -47,8 +40,8 @@
         <% if user_signed_in? %>
         <% if @post.user_id == current_user.id %>
         <div class="post-menus">
-          <%= link_to("編集", "/posts/#{@post.id}/edit") %>
-          <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
+          <%= link_to "編集", edit_post_path %>
+          <%= link_to "削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </div>
         <% end %>
         <% end %>
@@ -57,16 +50,16 @@
 
     <% if user_signed_in? %>
     <div class="posts-show-item">
-      <%= form_tag("/replies/#{@post.id}/create", {multipart: true}) do %>
+      <%= form_with model: @reply do |f| %>
       <div class="form-body">
         <% @reply.errors.full_messages.each do |message| %>
         <div class="form-error">
           <%= message %>
         </div>
         <% end %>
-
-        <textarea name="comment"><%= @reply.comment %></textarea>
-        <input type="submit" value="リプライ">
+        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= f.text_area :comment, rows: 5 %>
+        <%= f.submit "リプライ" %>
       </div>
       <% end %>
     </div>
@@ -76,7 +69,7 @@
     <div class="posts-show-item">
       <div class="reply-head">
         <a href="<%= "/users/#{reply.user_id}" %>">
-          <img src="<%= reply.user.image_name %>">
+          <img src="<%= reply.user.image %>">
           <p><%= reply.user.name %></p>
         </a>
       </div>
@@ -87,8 +80,8 @@
         <% if current_user %>
         <% if reply.user_id == current_user.id %>
         <div class="reply-menus">
-          <%= link_to("編集", "/replies/#{reply.id}/edit") %>
-          <%= link_to("削除", "/replies/#{reply.id}/destroy", {method: "post"}) %>
+          <%= link_to "編集", edit_reply_path %>
+          <%= link_to "削除", reply, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </div>
         <% end %>
         <% end %>

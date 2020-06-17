@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def check_guest
     if resource.email == "guest@guestmail.com"
       flash[:alert] = "ゲストユーザーの編集・削除できません。"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     end
   end
 

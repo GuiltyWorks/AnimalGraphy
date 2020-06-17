@@ -1,16 +1,16 @@
 <div class="main replies-edit">
   <div class="container">
     <div class="replies-edit-item">
-      <%= form_tag("/replies/#{params[:id]}/update", {multipart: true}) do %>
+      <%= form_with model: @reply do |f| %>
       <div class="form-body">
         <% @reply.errors.full_messages.each do |message| %>
         <div class="form-error">
           <%= message %>
         </div>
         <% end %>
-
-        <textarea name="comment"><%= @reply.comment %></textarea>
-        <input type="submit" value="保存">
+        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= f.text_area :comment, rows: 5 %>
+        <%= f.submit "リプライ" %>
       </div>
       <% end %>
     </div>

@@ -36,71 +36,21 @@ gem 'mini_magick', '~> 4.8'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [ :mri, :mingw, :x64_mingw ]
-
-  # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework, Minitest.
-  # https://github.com/rspec/rspec-rails
-  gem 'rspec-rails'
-
-  # factory_bot is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances,
-  # attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
-  # https://github.com/thoughtbot/factory_bot_rails
-  gem 'factory_bot_rails'
-
-  # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
-  # https://github.com/rails/rails-controller-testing
-  gem 'rails-controller-testing'
-
-  # RackSessionAccess provides rack middleware for 'rack.session' environment management.
-  # https://github.com/railsware/rack_session_access
-  gem 'rack_session_access'
-
-  # Database Cleaner is a set of gems containing strategies for cleaning your database in Ruby.
-  # https://github.com/DatabaseCleaner/database_cleaner
-  gem 'database_cleaner'
-end
-
-group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-
-  # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter.
-  # https://github.com/rubocop-hq/rubocop
-  gem 'rubocop', require: false
-
-  # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
-  # https://github.com/rubocop-hq/rubocop-rails
-  gem 'rubocop-rails', require: false
-end
-
-group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]
-
 # The Numerical N-dimensional Array class for fast processing and easy manipulation of multi-dimensional numerical data, similar to numpy.ndaray
 # https://github.com/ruby-numo/numo-narray
 gem 'numo-narray'
 
 # The high performance scoring engine for ML models
 # https://github.com/ankane/onnxruntime
-gem 'onnxruntime'
+gem 'onnxruntime', '0.3.1'
 
 # Ruby-FFI is a gem for programmatically loading dynamically-linked native libraries, binding functions within them, and calling those functions from Ruby code.
 # https://github.com/ffi/ffi
-gem 'ffi', '>= 1.12.2', '< 1.13.0'
+gem 'ffi', '1.12.2'
+
+# Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
+# https://github.com/twbs/bootstrap-rubygem
+gem 'bootstrap'
 
 # jQuery for Rails
 # https://github.com/rails/jquery-rails
@@ -129,3 +79,73 @@ gem 'devise'
 # This gem contains the Twitter strategy for OmniAuth
 # https://github.com/arunagw/omniauth-twitter
 gem 'omniauth-twitter'
+
+# A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
+# https://github.com/kaminari/kaminari
+gem 'kaminari'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [ :mri, :mingw, :x64_mingw ]
+
+  # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework, Minitest.
+  # https://github.com/rspec/rspec-rails
+  gem 'rspec-rails'
+
+  # factory_bot is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies (saved instances, unsaved instances,
+  # attribute hashes, and stubbed objects), and support for multiple factories for the same class (user, admin_user, and so on), including factory inheritance.
+  # https://github.com/thoughtbot/factory_bot_rails
+  gem 'factory_bot_rails'
+
+  # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests
+  # https://github.com/rails/rails-controller-testing
+  gem 'rails-controller-testing'
+
+  # RackSessionAccess provides rack middleware for 'rack.session' environment management.
+  # https://github.com/railsware/rack_session_access
+  gem 'rack_session_access'
+
+  # Database Cleaner is a set of gems containing strategies for cleaning your database in Ruby.
+  # https://github.com/DatabaseCleaner/database_cleaner
+  gem 'database_cleaner'
+
+  # rails-flog provides feature that formats parameters Hash and SQL in Rails log file.
+  # https://github.com/pinzolo/rails-flog
+  gem 'rails-flog', require: 'flog'
+end
+
+group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter.
+  # https://github.com/rubocop-hq/rubocop
+  gem 'rubocop', require: false
+
+  # A RuboCop extension focused on enforcing Rails best practices and coding conventions.
+  # https://github.com/rubocop-hq/rubocop-rails
+  gem 'rubocop-rails', require: false
+
+  # Adds step-by-step debugging and stack navigation capabilities to pry using byebug.
+  # https://github.com/deivid-rodriguez/pry-byebug
+  gem 'pry-byebug'
+
+  # Add a comment summarizing the current schema
+  # https://github.com/ctran/annotate_models
+  gem 'annotate'
+end
+
+group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [ :mingw, :mswin, :x64_mingw, :jruby ]

@@ -4,20 +4,18 @@ class RepliesController < ApplicationController
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def create
-    @reply = Reply.new(user_id: current_user.id, post_id: params[:post_id], comment: params[:comment])
+    @reply = Reply.create(reply_params)
     @reply.save
-    redirect_to("/posts/#{params[:post_id]}")
+    redirect_to @reply.post
   end
 
   def edit
   end
 
   def update
-    @reply.comment = params[:comment]
-
-    if @reply.save
+    if @reply.update(reply_params)
       flash[:notice] = "リプライを編集しました"
-      redirect_to("/posts/#{@reply.post_id}")
+      redirect_to @reply.post
     else
       render("replies/edit")
     end
@@ -40,5 +38,9 @@ class RepliesController < ApplicationController
       flash[:notice] = "権限がありません"
       redirect_to("/posts/index")
     end
+  end
+
+  def reply_params
+    params.require(:reply).permit(:post_id, :comment).merge(user_id: current_user.id)
   end
 end

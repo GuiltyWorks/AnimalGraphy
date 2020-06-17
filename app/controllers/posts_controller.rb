@@ -10,7 +10,7 @@ class PostsController < ApplicationController
 
   def search
     if params[:keyword] == ""
-      redirect_to("/posts/index")
+      redirect_to posts_path
       return
     end
 
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
       ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
     else
       flash[:notice] = "ランキングが見つかりませんでした"
-      redirect_to("/posts/index")
+      redirect_to posts_path
       return
     end
 
@@ -53,16 +53,14 @@ class PostsController < ApplicationController
   end
 
   def tags
-    tag = params[:tag]
-    tags = [ "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe" ]
-    unless tags.include?(tag)
+    unless Tag.find(params[:id])
       flash[:notice] = "タグが見つかりませんでした"
-      redirect_to("/posts/index")
+      redirect_to posts_path
       return
     end
 
-    @posts = Post.where(id: Tag.where(tag.to_sym => true).pluck(:post_id)).order(created_at: :desc)
-    @active_list = make_active_list(tag.to_sym)
+    @posts = Tag.find(params[:id]).posts.order(created_at: :desc)
+    @active_list = make_active_list(Tag.find(params[:id]).name)
     render("posts/index")
   end
 
@@ -76,24 +74,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(
-      comment: params[:comment],
-      user_id: current_user.id,
-      image_name: params[:image],
-    )
+    @post = Post.create(post_params)
+    @post.tag_ids = detection(params[:post][:image].read)
 
     if @post.save
-      detection_result = detection("public#{@post.image_name}")
-
-      @tag = Tag.new(post_id: @post.id)
-      detection_result.each do |tag|
-        @tag[tag.to_sym] = true
-      end
-
-      @tag.save
-
       flash[:notice] = "投稿を作成しました"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     else
       render("posts/new")
     end
@@ -103,23 +89,23 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.comment = params[:comment]
-    @post.image_name = params[:image] if params[:image]
+    unless params[:post][:image]
+      @post.comment = params[:post][:comment]
 
-    if @post.save
-      if params[:image]
-        detection_result = detection("public#{@post.image_name}")
-
-        @tag = Tag.find_by(post_id: @post.id)
-        detection_result.each do |tag|
-          @tag[tag.to_sym] = true
-        end
-
-        @tag.save
+      if @post.save
+        flash[:notice] = "投稿を編集しました"
+        redirect_to("/posts/#{@post.id}")
+      else
+        render("posts/edit")
       end
 
+      return
+    end
+
+    @post.tag_ids = detection(params[:post][:image].read)
+    if @post.update(post_params)
       flash[:notice] = "投稿を編集しました"
-      redirect_to("/posts/#{@post.id}")
+      redirect_to @post
     else
       render("posts/edit")
     end
@@ -127,13 +113,9 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    @tag = Tag.find_by(post_id: params[:id])
-    @tag.destroy
-    @replies = Reply.where(post_id: params[:id])
-    @replies.each(&:destroy)
 
     flash[:notice] = "投稿を削除しました"
-    redirect_to("/posts/index")
+    redirect_to posts_path
   end
 
   private
@@ -145,38 +127,34 @@ class PostsController < ApplicationController
   def ensure_correct_user
     if @post.user_id != current_user.id
       flash[:notice] = "権限がありません"
-      redirect_to("/posts/index")
+      redirect_to posts_path
     end
+  end
+
+  def post_params
+    params.require(:post).permit(:image, :comment).merge(user_id: current_user.id)
   end
 
   def make_active_list(key)
     active_list = {
-      all: "inactive",
-      monthly: "inactive",
-      weekly: "inactive",
-      daily: "inactive",
-      general: "inactive",
-      bird: "inactive",
-      cat: "inactive",
-      dog: "inactive",
-      horse: "inactive",
-      sheep: "inactive",
-      cow: "inactive",
-      elephant: "inactive",
-      bear: "inactive",
-      zebra: "inactive",
-      giraffe: "inactive",
+      "all" => "inactive",
+      "monthly" => "inactive",
+      "weekly" => "inactive",
+      "daily" => "inactive",
     }
-    active_list[key] = "active" if key
+    Tag.all.each do |tag|
+      active_list[tag.name] = "inactive"
+    end
+    active_list[key] = "active"
 
     return active_list
   end
 
-  def detection(img_name)
+  def detection(binary_image)
     model = OnnxRuntime::Model.new("public/object_detection/yolov3.onnx")
-    labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt")
+    labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt").map(&:chomp)
 
-    img = MiniMagick::Image.open(img_name)
+    img = MiniMagick::Image.read(binary_image)
     image_size = [ [ img.height, img.width ] ]
     img.combine_options do |b|
       b.resize "416x416"
@@ -187,26 +165,21 @@ class PostsController < ApplicationController
     img_data = Numo::SFloat.cast(img.get_pixels)
     img_data /= 255.0
     image_data = img_data.transpose(2, 0, 1).expand_dims(0).to_a
-
-    # 物体検出
-    output = model.predict(input_1: image_data, image_shape: image_size)
-
+    output = model.predict(input_1: image_data, image_shape: image_size) # 物体検出
     boxes, scores, indices = output.values
-    results = indices.map do |idx|
-      { class: idx[1], score: scores[idx[0]][idx[1]][idx[2]], box: boxes[idx[0]][idx[2]] }
-    end
+    results = indices.map { |idx| { class: idx[1], score: scores[idx[0]][idx[1]][idx[2]], box: boxes[idx[0]][idx[2]] } }
 
-    animals = [ "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe" ]
-    result = []
-
+    tag_ids = []
     results.each do |r|
-      label = labels[r[:class]].chomp
+      label = labels[r[:class]]
       score = r[:score]
-
       # 判定結果が動物かつ確率が50%以上の場合のみ検出扱い
-      result.push(label) if animals.include?(label) && score > 0.5
+      if label != "other" && score > 0.5
+        tag = Tag.find_by(name: label)
+        tag_ids.push(tag&.id)
+      end
     end
 
-    return result
+    return tag_ids.compact
   end
 end

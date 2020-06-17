@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_050912) do
+ActiveRecord::Schema.define(version: 2020_06_16_145642) do
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
@@ -19,12 +19,21 @@ ActiveRecord::Schema.define(version: 2020_05_31_050912) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "post_tag_relations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_post_tag_relations_on_post_id"
+    t.index ["tag_id"], name: "index_post_tag_relations_on_tag_id"
+  end
+
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "comment"
-    t.string "image_name"
+    t.string "image"
   end
 
   create_table "replies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -36,23 +45,13 @@ ActiveRecord::Schema.define(version: 2020_05_31_050912) do
   end
 
   create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "post_id"
-    t.boolean "bird", default: false, null: false
-    t.boolean "cat", default: false, null: false
-    t.boolean "dog", default: false, null: false
-    t.boolean "horse", default: false, null: false
-    t.boolean "sheep", default: false, null: false
-    t.boolean "cow", default: false, null: false
-    t.boolean "elephant", default: false, null: false
-    t.boolean "bear", default: false, null: false
-    t.boolean "zebra", default: false, null: false
-    t.boolean "giraffe", default: false, null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "image_name"
+    t.string "image"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -81,4 +80,6 @@ ActiveRecord::Schema.define(version: 2020_05_31_050912) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "post_tag_relations", "posts"
+  add_foreign_key "post_tag_relations", "tags"
 end

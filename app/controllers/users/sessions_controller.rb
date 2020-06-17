@@ -7,7 +7,7 @@ class Users::SessionsController < Devise::SessionsController
     guest_user = User.create_guest
     sign_in guest_user
     flash[:notice] = "ゲストユーザーとしてログインしました。"
-    redirect_to("/posts/index")
+    redirect_to posts_path
   end
 
   # GET /resource/sign_in

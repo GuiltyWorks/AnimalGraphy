@@ -7,8 +7,7 @@ WORKDIR $APP_ROOT
 COPY ./Gemfile $APP_ROOT/Gemfile
 COPY ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
-RUN apt update && \
-    apt upgrade -y && \
+RUN apt update -qq && \
     apt install -y build-essential libpq-dev nodejs imagemagick && \
     gem install bundler && \
     bundle install

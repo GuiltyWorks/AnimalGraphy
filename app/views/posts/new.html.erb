@@ -1,7 +1,7 @@
 <div class="main posts-new">
   <div class="container">
     <div class="posts-new-item">
-      <%= form_tag("/posts/create", {multipart: true}) do %>
+      <%= form_with model: @post do |f| %>
       <div class="form-body">
         <% @post.errors.full_messages.each do |message| %>
         <div class="form-error">
@@ -9,11 +9,11 @@
         </div>
         <% end %>
 
-        <p>画像</p>
-        <input name="image" type="file">
-        <p>コメント</p>
-        <textarea name="comment"><%= @post.comment %></textarea>
-        <input type="submit" value="投稿">
+        <%= f.label :image, "画像" %>
+        <%= f.file_field :image %>
+        <%= f.label :comment, "コメント" %>
+        <%= f.text_area :comment, rows: 10 %>
+        <%= f.submit "投稿" %>
       </div>
       <% end %>
     </div>

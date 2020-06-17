@@ -14,11 +14,11 @@ Rails.application.routes.draw do
 
   get "/news/:key" => "news#index"
 
-  get "replies/:id/edit" => "replies#edit"
-
-  post "replies/:post_id/create" => "replies#create"
-  post "replies/:id/update" => "replies#update"
-  post "replies/:id/destroy" => "replies#destroy"
+  resources :replies, only: [ :edit, :create, :update, :destroy ]
+  # get "replies/:id/edit" => "replies#edit"
+  # post "replies/:post_id/create" => "replies#create"
+  # post "replies/:id/update" => "replies#update"
+  # post "replies/:id/destroy" => "replies#destroy"
 
   post "likes/:post_id/create" => "likes#create"
   post "likes/:post_id/destroy" => "likes#destroy"
@@ -30,17 +30,18 @@ Rails.application.routes.draw do
   get "users/:id/likes" => "users#likes"
   get "users/:id" => "users#show"
 
-  get "posts/index" => "posts#index"
+  # get "posts/index" => "posts#index"
   get "posts/search" => "posts#search"
   get "posts/ranking/:period" => "posts#ranking"
-  get "posts/new" => "posts#new"
-  get "posts/tags/:tag" => "posts#tags"
-  get "posts/:id/edit" => "posts#edit"
-  get "posts/:id" => "posts#show"
+  # get "posts/new" => "posts#new"
+  get "posts/tags/:id" => "posts#tags"
+  resources :posts
+  # get "posts/:id/edit" => "posts#edit"
+  # get "posts/:id" => "posts#show"
 
-  post "posts/create" => "posts#create"
-  post "posts/:id/update" => "posts#update"
-  post "posts/:id/destroy" => "posts#destroy"
+  # post "posts/create" => "posts#create"
+  # post "posts/:id/update" => "posts#update"
+  # post "posts/:id/destroy" => "posts#destroy"
 
   get "/" => "posts#index"
   get "/about" => "home#about"
