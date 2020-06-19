@@ -142,3 +142,6 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
