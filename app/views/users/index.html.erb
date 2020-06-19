@@ -3,7 +3,7 @@
     <% @users.each do |user| %>
     <div class="users-index-item">
       <a href="<%= "/users/#{user.id}" %>">
-        <img src="<%= user.image_name %>">
+        <img src="<%= user.image %>">
         <p><%= user.name %></p>
       </a>
     </div>

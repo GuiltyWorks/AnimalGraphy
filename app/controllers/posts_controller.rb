@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    if params[:keyword] == ""
+    if params[:keyword].blank?
       redirect_to posts_path
       return
     end
@@ -48,18 +48,19 @@ class PostsController < ApplicationController
     end
 
     @posts = Post.find(ranking)
-    @active_list = make_active_list(params[:period].to_sym)
+    @active_list = make_active_list(params[:period])
     render("posts/index")
   end
 
   def tags
-    unless Tag.find(params[:id])
+    tag = Tag.find_by(id: params[:id])
+    if tag.nil?
       flash[:notice] = "タグが見つかりませんでした"
       redirect_to posts_path
       return
     end
 
-    @posts = Tag.find(params[:id]).posts.order(created_at: :desc)
+    @posts = tag.posts.order(created_at: :desc)
     @active_list = make_active_list(Tag.find(params[:id]).name)
     render("posts/index")
   end
@@ -121,7 +122,12 @@ class PostsController < ApplicationController
   private
 
   def set_target_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(id: params[:id])
+    if @post.nil?
+      flash[:notice] = "投稿が見つかりませんでした"
+      redirect_to posts_path
+      return
+    end
   end
 
   def ensure_correct_user

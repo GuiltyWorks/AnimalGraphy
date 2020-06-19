@@ -28,19 +28,19 @@
 
   <div class="sub-menu">
     <div class="sub-menu-item">
-      <%= form_tag("/posts/search", {method: "get", enforce_utf8: false}) do %>
-      <%= text_field_tag(:keyword) %>
-      <%= submit_tag("検索", name: nil) %>
+      <%= form_tag "/posts/search", { method: :get, enforce_utf8: false } do %>
+      <%= text_field_tag :keyword %>
+      <%= submit_tag "検索", name: nil %>
       <% end %>
       <div class="topics">
         <h2>ランキング</h2>
-        <%= link_to("全投稿のいいねランキング", "/posts/ranking/all", {class: @active_list["all"]}) %>
-        <%= link_to("今月のランキング", "/posts/ranking/monthly", {class: @active_list["monthly"]}) %>
-        <%= link_to("今週のランキング", "/posts/ranking/weekly", {class: @active_list["weekly"]}) %>
-        <%= link_to("今日のランキング", "/posts/ranking/daily", {class: @active_list["daily"]}) %>
+        <%= link_to "全投稿のいいねランキング", "/posts/ranking/all", { class: @active_list["all"] } %>
+        <%= link_to "今月のランキング", "/posts/ranking/monthly", { class: @active_list["monthly"] } %>
+        <%= link_to "今週のランキング", "/posts/ranking/weekly", { class: @active_list["weekly"] } %>
+        <%= link_to "今日のランキング", "/posts/ranking/daily", { class: @active_list["daily"] } %>
         <h2>タグ</h2>
         <% Tag.all.each do |tag| %>
-        <%= link_to tag.name, "/posts/tags/#{tag.id}", {class: @active_list[tag.name]} %>
+        <%= link_to tag.name, "/posts/tags/#{tag.id}", { class: @active_list[tag.name] } %>
         <% end %>
       </div>
     </div>

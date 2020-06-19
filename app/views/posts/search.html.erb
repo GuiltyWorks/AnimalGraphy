@@ -4,32 +4,45 @@
     <div class="posts-index-item">
       <div class="post-head">
         <a href="<%= "/users/#{post.user_id}" %>">
-          <img src="<%= post.user.image_name %>">
+          <img src="<%= post.user.image %>">
           <p><%= post.user.name %></p>
         </a>
       </div>
 
       <div class="post-body">
         <a href="<%= "/posts/#{post.id}" %>">
-          <img src="<%= post.image_name %>">
+          <img src="<%= post.image %>">
           <p>
             <%= post.comment %>
           </p>
         </a>
         <div class="tag">
-          <% if post.tag.bird %><%= link_to("bird", "/posts/tags/bird") %><% end %>
-          <% if post.tag.cat %><%= link_to("cat", "/posts/tags/cat") %><% end %>
-          <% if post.tag.dog %><%= link_to("dog", "/posts/tags/dog") %><% end %>
-          <% if post.tag.horse %><%= link_to("horse", "/posts/tags/horse") %><% end %>
-          <% if post.tag.sheep %><%= link_to("sheep", "/posts/tags/sheep") %><% end %>
-          <% if post.tag.cow %><%= link_to("cow", "/posts/tags/cow") %><% end %>
-          <% if post.tag.elephant %><%= link_to("elephant", "/posts/tags/elephant") %><% end %>
-          <% if post.tag.bear %><%= link_to("bear", "/posts/tags/bear") %><% end %>
-          <% if post.tag.zebra %><%= link_to("zebra", "/posts/tags/zebra") %><% end %>
-          <% if post.tag.giraffe %><%= link_to("giraffe", "/posts/tags/giraffe") %><% end %>
+          <% post.tags.each do |tag| %>
+          <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+          <% end %>
         </div>
       </div>
     </div>
     <% end %>
+  </div>
+
+  <div class="sub-menu">
+    <div class="sub-menu-item">
+      <%= form_tag "/posts/search", { method: :get, enforce_utf8: false } do %>
+      <%= text_field_tag :keyword %>
+      <%= submit_tag "検索", name: nil %>
+      <% end %>
+      <div class="topics">
+        <h2>ランキング</h2>
+        <%= link_to "全投稿のいいねランキング", "/posts/ranking/all", { class: @active_list["all"] } %>
+        <%= link_to "今月のランキング", "/posts/ranking/monthly", { class: @active_list["monthly"] } %>
+        <%= link_to "今週のランキング", "/posts/ranking/weekly", { class: @active_list["weekly"] } %>
+        <%= link_to "今日のランキング", "/posts/ranking/daily", { class: @active_list["daily"] } %>
+        <h2>タグ</h2>
+        <% Tag.all.each do |tag| %>
+        <%= link_to tag.name, "/posts/tags/#{tag.id}", { class: @active_list[tag.name] } %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

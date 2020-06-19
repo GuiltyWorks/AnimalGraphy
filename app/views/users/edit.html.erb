@@ -8,7 +8,7 @@
         </div>
         <% end %>
 
-        <%= form_tag("/users/#{@user.id}/update", {multipart: true}) do %>
+        <%= form_tag "/users/#{@user.id}/update" { multipart: true } do %>
         <p>ユーザー名</p>
         <input name="name" value="<%= @user.name %>">
         <p>画像</p>
@@ -18,7 +18,7 @@
         <input type="submit" value="保存">
         <% end %>
         <div class="delete">
-          <%= link_to("アカウントを削除する", "/users/#{@user.id}/delete") %>
+          <%= link_to "アカウントを削除する", "/users/#{@user.id}/delete" %>
         </div>
       </div>
     </div>

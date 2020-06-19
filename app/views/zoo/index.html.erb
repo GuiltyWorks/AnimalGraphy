@@ -5,8 +5,7 @@
       <div class="zoo-index-item">
         <div class="zoo-body">
           <a href="<%= zoo[:uri] %>" target="_blank" rel="noopener noreferrer">
-            <% image_uri = zoo[:image] == "" ? "zoo.jpg" : zoo[:image] %>
-            <img src="<%= image_uri %>">
+            <img src="<%= zoo[:image] == "" ? "zoo.jpg" : zoo[:image] %>">
             <p><%= zoo[:name] %></p>
           </a>
         </div>
