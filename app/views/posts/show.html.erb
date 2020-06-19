@@ -10,7 +10,7 @@
       <div class="post-body">
         <img src="<%= @post.image %>">
         <p>
-          <%= @post.comment %>
+          <%= simple_format(@post.comment) %>
         </p>
         <div class="tag">
           <% @post.tags.each do |tag| %>
@@ -75,7 +75,7 @@
       </div>
       <div class="reply-body">
         <p>
-          <%= reply.comment %>
+          <%= simple_format(reply.comment) %>
         </p>
         <% if current_user %>
         <% if reply.user_id == current_user.id %>

@@ -26,7 +26,7 @@
         <a href="<%= "/posts/#{post.id}" %>">
           <img src="<%= post.image %>">
           <p>
-            <%= post.comment %>
+            <%= simple_format(post.comment) %>
           </p>
         </a>
         <div class="tag">
