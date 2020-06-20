@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery
+//= require popper
+//= require bootstrap-sprockets
 
 $(function () {
     setTimeout("$('.flash').fadeOut('slow')", 2000);

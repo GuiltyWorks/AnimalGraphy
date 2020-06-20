@@ -45,8 +45,8 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   has_many :posts
-  has_many :replies
   has_many :likes
+  has_many :replies
 
   def self.create_guest
     find_or_create_by!(email: "guest@guestmail.com") do |user|

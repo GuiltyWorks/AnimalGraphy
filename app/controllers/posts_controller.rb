@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(created_at: :desc).page(params[:page])
     @active_list = make_active_list(nil)
   end
 
@@ -24,6 +24,7 @@ class PostsController < ApplicationController
       @posts.where!("comment NOT LIKE ?", "%#{keyword.delete_prefix('-')}%")
     end
 
+    @posts = @posts.page(params[:page])
     @active_list = make_active_list(nil)
     render("posts/index")
   end
@@ -47,7 +48,7 @@ class PostsController < ApplicationController
       return
     end
 
-    @posts = Post.find(ranking)
+    @posts = Kaminari.paginate_array(Post.find(ranking)).page(params[:page])
     @active_list = make_active_list(params[:period])
     render("posts/index")
   end
@@ -60,7 +61,7 @@ class PostsController < ApplicationController
       return
     end
 
-    @posts = tag.posts.order(created_at: :desc)
+    @posts = tag.posts.order(created_at: :desc).page(params[:page])
     @active_list = make_active_list(Tag.find(params[:id]).name)
     render("posts/index")
   end

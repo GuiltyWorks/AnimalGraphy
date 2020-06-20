@@ -31,7 +31,7 @@
         <span class="fa fa-heart like-btn-no-hover"></span>
         <% end %>
         <p class="likes-count">
-          <%= Like.where(post_id: @post.id).count %>
+          <%= @post.likes.count %>
         </p>
         <% if user_signed_in? && @post.user_id == current_user.id %>
         <div class="post-menus">
