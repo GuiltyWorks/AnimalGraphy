@@ -23,13 +23,9 @@
 
         <% if user_signed_in? %>
         <% if Like.find_by(user_id: current_user.id, post_id: @post.id) %>
-        <%= link_to "/likes/#{@post.id}/destroy", { method: :post } do %>
-        <span class="fa fa-heart like-btn-unlike"></span>
-        <% end %>
+        <%= link_to like_path, { method: :delete } do %><span class="fa fa-heart like-btn-unlike"></span><% end %>
         <% else %>
-        <%= link_to "/likes/#{@post.id}/create", { method: :post } do %>
-        <span class="fa fa-heart like-btn"></span>
-        <% end %>
+        <%= link_to likes_path(id: @post.id), { method: :post } do %><span class="fa fa-heart like-btn"></span><% end %>
         <% end %>
         <% else %>
         <span class="fa fa-heart like-btn-no-hover"></span>
@@ -37,13 +33,11 @@
         <p class="likes-count">
           <%= Like.where(post_id: @post.id).count %>
         </p>
-        <% if user_signed_in? %>
-        <% if @post.user_id == current_user.id %>
+        <% if user_signed_in? && @post.user_id == current_user.id %>
         <div class="post-menus">
           <%= link_to "編集", edit_post_path %>
           <%= link_to "削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </div>
-        <% end %>
         <% end %>
       </div>
     </div>
@@ -77,13 +71,11 @@
         <p>
           <%= simple_format(reply.comment) %>
         </p>
-        <% if current_user %>
-        <% if reply.user_id == current_user.id %>
+        <% if user_signed_in? && reply.user_id == current_user.id %>
         <div class="reply-menus">
-          <%= link_to "編集", edit_reply_path %>
+          <%= link_to "編集", "/replies/#{reply.id}/edit" %>
           <%= link_to "削除", reply, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </div>
-        <% end %>
         <% end %>
       </div>
     </div>

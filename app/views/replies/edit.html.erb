@@ -8,7 +8,7 @@
           <%= message %>
         </div>
         <% end %>
-        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= f.hidden_field :post_id, value: @reply.post.id %>
         <%= f.text_area :comment, rows: 5 %>
         <%= f.submit "リプライ" %>
       </div>
