@@ -39,20 +39,23 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: [ :twitter ]
 
-  validates :name, { presence: true }
+  validates :name, { presence: true, length: { maximum: 16 } }
   validates :email, { presence: true, uniqueness: true }
 
   mount_uploader :image, ImageUploader
 
-  has_many :posts
-  has_many :likes
-  has_many :replies
+  has_many :user_tag_relations, dependent: :delete_all
+  has_many :tags, through: :user_tag_relations
+  has_many :posts, dependent: :delete_all
+  has_many :likes, dependent: :delete_all
+  has_many :replies, dependent: :delete_all
 
   def self.create_guest
     find_or_create_by!(email: "guest@guestmail.com") do |user|
       user.name = "ゲスト"
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Date.today
+      user.tags = Tag.all.map(&:id)
     end
   end
 

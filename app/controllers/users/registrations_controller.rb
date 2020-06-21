@@ -1,14 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :check_guest, { only: [ :edit, :update, :destroy ] }
+  before_action :configure_permitted_parameters_for_image, { only: [ :update ] }
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
-  def check_guest
-    if resource.email == "guest@guestmail.com"
-      flash[:alert] = "ゲストユーザーの編集・削除できません。"
-      redirect_to posts_path
-    end
-  end
 
   # GET /resource/sign_up
   # def new
@@ -65,4 +59,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+
+  def check_guest
+    if resource.email == "guest@guestmail.com"
+      flash[:alert] = "ゲストユーザーの編集・削除できません。"
+      redirect_to posts_path
+    end
+  end
+
+  def configure_permitted_parameters_for_image
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :image ]) if params[:user][:image]
+  end
 end
