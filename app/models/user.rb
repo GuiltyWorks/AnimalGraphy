@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string(255)
+#  description            :text(65535)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  failed_attempts        :integer          default(0), not null
@@ -41,6 +42,7 @@ class User < ApplicationRecord
 
   validates :name, { presence: true, length: { maximum: 16 } }
   validates :email, { presence: true, uniqueness: true }
+  validates :description, { length: { maximum: 100 } }
 
   mount_uploader :image, ImageUploader
 
@@ -55,7 +57,7 @@ class User < ApplicationRecord
       user.name = "ゲスト"
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Date.today
-      user.tags = Tag.all.map(&:id)
+      user.tags = Tag.all
     end
   end
 

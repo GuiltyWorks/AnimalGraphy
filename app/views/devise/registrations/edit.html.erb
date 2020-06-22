@@ -24,6 +24,11 @@
         <% end %>
 
         <div class="field">
+          <%= f.label :description %><br />
+          <%= f.text_area :description, rows: 10 %>
+        </div>
+
+        <div class="field">
           <%= f.label :tag_ids, "フォローするタグ" %>
           <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
           <div class="form-check">

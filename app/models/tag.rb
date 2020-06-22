@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 class Tag < ApplicationRecord
-  validates :name, { presence: true }
+  validates :name, { presence: true, uniqueness: true }
 
   has_many :post_tag_relations, dependent: :delete_all
   has_many :posts, through: :post_tag_relations

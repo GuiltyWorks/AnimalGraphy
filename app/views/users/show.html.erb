@@ -4,6 +4,7 @@
       <img src="<%= @user.image %>">
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
+      <p><%= simple_format(@user.description) %></p>
       <% if user_signed_in? && @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
       <%= link_to "編集", "/users/edit" %>
       <% end %>

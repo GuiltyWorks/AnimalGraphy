@@ -1,13 +1,6 @@
 class Users::PasswordsController < Devise::PasswordsController
   before_action :check_guest, { only: [ :create ] }
 
-  def check_guest
-    if params[:user][:email].downcase == "guest@guestmail.com"
-      flash[:alert] = "ゲストユーザーの編集・削除できません。"
-      redirect_to posts_path
-    end
-  end
-
   # GET /resource/password/new
   # def new
   #   super
@@ -38,4 +31,13 @@ class Users::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  private
+
+  def check_guest
+    if params[:user][:email].downcase == "guest@guestmail.com"
+      flash[:alert] = "ゲストユーザーの編集・削除できません。"
+      redirect_to posts_path
+    end
+  end
 end
