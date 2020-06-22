@@ -46,12 +46,8 @@
     <div class="posts-show-item">
       <%= form_with model: @reply do |f| %>
       <div class="form-body">
-        <% @reply.errors.full_messages.each do |message| %>
-        <div class="form-error">
-          <%= message %>
-        </div>
-        <% end %>
-        <%= f.hidden_field :post_id, value: @post.id %>
+        <%= render 'share/error' %>
+
         <%= f.text_area :comment, rows: 5 %>
         <%= f.submit "リプライ" %>
       </div>

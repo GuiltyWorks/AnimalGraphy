@@ -1,0 +1,7 @@
+<% if flash[:error_messages]  %>
+<% flash[:error_messages].each do |message|  %>
+<div class="form-error">
+  <%= message %>
+</div>
+<% end %>
+<% end %>

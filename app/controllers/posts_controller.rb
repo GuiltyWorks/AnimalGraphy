@@ -26,7 +26,7 @@ class PostsController < ApplicationController
 
     @posts = @posts.page(params[:page])
     @active_list = make_active_list(nil)
-    render("posts/index")
+    render "posts/index"
   end
 
   def ranking
@@ -43,51 +43,56 @@ class PostsController < ApplicationController
       period = Date.today.in_time_zone.all_day
       ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
     else
-      flash[:notice] = "ランキングが見つかりませんでした"
+      flash[:notice] = "ランキングが見つかりませんでした。"
       redirect_to posts_path
       return
     end
 
     @posts = Kaminari.paginate_array(Post.find(ranking)).page(params[:page])
     @active_list = make_active_list(params[:period])
-    render("posts/index")
+    render "posts/index"
   end
 
   def tags
     tag = Tag.find_by(id: params[:id])
     if tag.nil?
-      flash[:notice] = "タグが見つかりませんでした"
+      flash[:notice] = "タグが見つかりませんでした。"
       redirect_to posts_path
       return
     end
 
     @posts = tag.posts.order(created_at: :desc).page(params[:page])
     @active_list = make_active_list(Tag.find(params[:id]).name)
-    render("posts/index")
+    render "posts/index"
   end
 
   def show
-    @reply = Reply.new
+    @reply = Reply.new(post_id: @post.id)
+    @reply.attributes = flash[:reply] if flash[:reply]
     @replies = Reply.where(post_id: params[:id]).order(created_at: :desc)
   end
 
   def new
-    @post = Post.new
+    @post = Post.new(flash[:post])
   end
 
   def create
-    @post = Post.create(post_params)
-    @post.tag_ids = detection(params[:post][:image].read)
+    @post = Post.new(post_params)
+    @post.tag_ids = detection(params[:post][:image].read) if params[:post][:image]
 
     if @post.save
-      flash[:notice] = "投稿を作成しました"
+      flash[:notice] = "投稿を作成しました。"
       redirect_to posts_path
     else
-      render("posts/new")
+      redirect_back fallback_location: new_post_path, flash: {
+        post: @post,
+        error_messages: @post.errors.full_messages,
+      }
     end
   end
 
   def edit
+    @post.attributes = flash[:post] if flash[:post]
   end
 
   def update
@@ -95,10 +100,13 @@ class PostsController < ApplicationController
       @post.comment = params[:post][:comment]
 
       if @post.save
-        flash[:notice] = "投稿を編集しました"
-        redirect_to("/posts/#{@post.id}")
+        flash[:notice] = "投稿を編集しました。"
+        redirect_to @post
       else
-        render("posts/edit")
+        redirect_back fallback_location: edit_post_path, flash: {
+          post: @post,
+          error_messages: @post.errors.full_messages,
+        }
       end
 
       return
@@ -106,17 +114,19 @@ class PostsController < ApplicationController
 
     @post.tag_ids = detection(params[:post][:image].read)
     if @post.update(post_params)
-      flash[:notice] = "投稿を編集しました"
+      flash[:notice] = "投稿を編集しました。"
       redirect_to @post
     else
-      render("posts/edit")
+      redirect_back fallback_location: edit_post_path, flash: {
+        post: @post,
+        error_messages: @post.errors.full_messages,
+      }
     end
   end
 
   def destroy
     @post.destroy
-
-    flash[:notice] = "投稿を削除しました"
+    flash[:notice] = "投稿を削除しました。"
     redirect_to posts_path
   end
 
@@ -125,7 +135,7 @@ class PostsController < ApplicationController
   def set_target_post
     @post = Post.find_by(id: params[:id])
     if @post.nil?
-      flash[:notice] = "投稿が見つかりませんでした"
+      flash[:notice] = "投稿が見つかりませんでした。"
       redirect_to posts_path
       return
     end
@@ -133,7 +143,7 @@ class PostsController < ApplicationController
 
   def ensure_correct_user
     if @post.user_id != current_user.id
-      flash[:notice] = "権限がありません"
+      flash[:notice] = "権限がありません。"
       redirect_to posts_path
     end
   end

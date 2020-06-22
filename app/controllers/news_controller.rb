@@ -2,7 +2,7 @@ class NewsController < ApplicationController
   def index
     tag = Tag.find_by(id: params[:key])
     if params[:key] != "general" && tag.nil?
-      flash[:notice] = "項目が見つかりませんでした"
+      flash[:notice] = "項目が見つかりませんでした。"
       redirect_to "/news/general"
       return
     end

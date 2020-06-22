@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, { only: [ :update ] }
   before_action :set_target_user, { only: [ :show, :likes ] }
 
   def index
