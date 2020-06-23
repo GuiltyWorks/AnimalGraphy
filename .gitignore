@@ -4,6 +4,8 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+/.env
+
 # Ignore bundler config.
 /.bundle
 
@@ -24,7 +26,7 @@
 !/public/object_detection/coco-labels-2014_2017.txt
 
 /public/assets
-.byebug_history
+/.byebug_history
 
 /public/uploads_test/**
 /public/uploads/**

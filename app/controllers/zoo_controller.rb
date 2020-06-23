@@ -2,7 +2,7 @@ class ZooController < ApplicationController
   def index
     coordinates = Geocoder.search(request.remote_ip).first.coordinates
 
-    api_key = "API_KEY"
+    api_key = ENV["API_KEY"]
     lat = coordinates[0]
     lng = coordinates[1]
     rad = "50000"
