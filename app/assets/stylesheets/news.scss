@@ -1,71 +1,47 @@
 // --------/news/:key--------
+.news-index {
+    display: table;
+    padding: 64px 20% 0 20%;
+}
+
 .news-index .container {
-    width: 100%;
-    max-width: 100%;
+    display: table-cell;
+    width: 75%;
+    max-width: 75%;
+    padding: 0;
 }
 
-.news-tabs {
+.news-index .sub-menu {
+    display: table-cell;
+    position: relative;
+    height: auto;
+}
+
+.news-index .sub-menu-item {
     background-color: white;
-    box-shadow: 0 2px 6px #d1d1d1;
-    overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    position: fixed;
+    height: auto;
+    padding: 20px;
+    margin: 20px;
 }
 
-.news-tabs li {
-    float: left;
+.news-index .sub-menu .sub-menu-item h2 {
+    margin-top: 50px;
 }
 
-.news-tabs li.active {
+.news-index .sub-menu .sub-menu-item a {
+    display: block;
+    margin: 10px 0;
+    transition-duration: 0.25s;
+}
+
+.news-index .sub-menu .sub-menu-item a:hover {
+    opacity: 0.5;
+    transition-duration: 0.25s;
+}
+
+.news-index .sub-menu .sub-menu-item a.active {
     border-bottom: 2px solid #10c000;
-}
-
-.news-tabs li.active a {
-    color: #57575f;
-}
-
-.news-tabs a {
-    color: #57575f;
-    display: inline-block;
-    padding: 16px 30px;
-}
-
-.news-index .news-index-items {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    width: 100%;
-    max-width: 100%;
-}
-
-@media screen and (max-width: 2100px) {
-    .news-index .news-index-items {
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: 1fr 1fr 1fr;
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
-@media screen and (max-width: 1600px) {
-    .news-index .news-index-items {
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: 1fr 1fr;
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
-@media screen and (max-width: 1100px) {
-    .news-index .news-index-items {
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: 1fr;
-        width: 100%;
-        max-width: 100%;
-    }
 }
 
 .news-index-item {
@@ -74,9 +50,10 @@
     overflow: hidden;
     align-self: center;
     justify-self: center;
-    width: 100%;
     height: 150px;
     padding: 20px;
+    margin: 20px auto;
+    margin-bottom: 10px;
 }
 
 // news-body

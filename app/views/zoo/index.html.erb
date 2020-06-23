@@ -1,16 +1,14 @@
 <div class="main zoo-index">
   <div class="container">
-    <div class="zoo-index-items">
-      <% @zoos.each do |zoo| %>
-      <div class="zoo-index-item">
-        <div class="zoo-body">
-          <a href="<%= zoo[:uri] %>" target="_blank" rel="noopener noreferrer">
-            <img src="<%= zoo[:image] == "" ? "zoo.jpg" : zoo[:image] %>">
-            <p><%= zoo[:name] %></p>
-          </a>
-        </div>
+    <% @zoos.each do |zoo| %>
+    <div class="zoo-index-item">
+      <div class="zoo-body">
+        <a href="<%= zoo[:uri] %>" target="_blank" rel="noopener noreferrer">
+          <img src="<%= zoo[:image] == "" ? "zoo.jpg" : zoo[:image] %>">
+          <p><%= zoo[:name] %></p>
+        </a>
       </div>
-      <% end %>
     </div>
+    <% end %>
   </div>
 </div>

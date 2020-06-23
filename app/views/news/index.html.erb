@@ -1,23 +1,25 @@
 <div class="main news-index">
   <div class="container">
-    <ul class="news-tabs">
-      <li class="<%= @active_list["general"] %>"><%= link_to "動物", "/news/general" %></li>
-      <% Tag.all.each do |tag| %>
-      <li class="<%= @active_list[tag.id.to_s] %>"><%= link_to tag.name, "/news/#{tag.id}" %></li>
-      <% end %>
-    </ul>
-
-    <div class="news-index-items">
-      <% @news_list.each do |news| %>
-      <div class="news-index-item">
-        <div class="news-body">
-          <a href="<%= news["url"] %>" target="_blank" rel="noopener noreferrer">
-            <img src="<%= news["image"] %>">
-            <p><%= news["title"] %></p>
-          </a>
-        </div>
+    <% @news_list.each do |news| %>
+    <div class="news-index-item">
+      <div class="news-body">
+        <a href="<%= news["url"] %>" target="_blank" rel="noopener noreferrer">
+          <img src="<%= news["image"] %>">
+          <p><%= news["title"] %></p>
+        </a>
       </div>
-      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="sub-menu">
+    <div class="sub-menu-item">
+      <div class="topics">
+        <%= link_to "動物", "/news/general", { class: @active_list["general"] } %>
+        <% Tag.all.each do |tag| %>
+        <%= link_to tag.name, "/news/#{tag.id}", { class: @active_list[tag.id.to_s] } %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
