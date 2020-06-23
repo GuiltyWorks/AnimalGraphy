@@ -18,8 +18,7 @@
 #  fk_rails_...  (post_id => posts.id)
 #  fk_rails_...  (tag_id => tags.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PostTagRelation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

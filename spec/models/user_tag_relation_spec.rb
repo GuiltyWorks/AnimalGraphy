@@ -18,8 +18,7 @@
 #  fk_rails_...  (tag_id => tags.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe UserTagRelation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -20,7 +20,9 @@
 #
 FactoryBot.define do
   factory :post_tag_relation do
-    post { nil }
-    tag { nil }
+    sequence(:post_id) { |n| n }
+    sequence(:tag_id) { |n| n }
+    association :post
+    association :tag
   end
 end

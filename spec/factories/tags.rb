@@ -9,7 +9,6 @@
 #
 FactoryBot.define do
   factory :tag do
-    sequence(:post_id) { |n| n }
-    association :post
+    sequence(:name) { |n| "Tag Name #{n}" }
   end
 end

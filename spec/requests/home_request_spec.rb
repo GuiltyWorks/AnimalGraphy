@@ -6,7 +6,7 @@ RSpec.describe "Home", type: :request do
   describe "GET #about" do
     context "before login" do
       it "returns a 200 response" do
-        get "/about"
+        get about_path
         expect(response).to have_http_status 200
         expect(response).to render_template "home/about", "layouts/application"
       end
@@ -15,7 +15,7 @@ RSpec.describe "Home", type: :request do
     context "after login" do
       it "returns a 200 response" do
         sign_in user
-        get "/about"
+        get about_path
         expect(response).to have_http_status 200
         expect(response).to render_template "home/about", "layouts/application"
       end
