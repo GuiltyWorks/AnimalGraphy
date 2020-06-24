@@ -6,37 +6,35 @@
       <p><%= @user.email %></p>
       <p><%= simple_format(@user.description) %></p>
       <% if user_signed_in? && @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
-      <%= link_to "編集", "/users/edit" %>
+        <%= link_to "編集", "/users/edit" %>
       <% end %>
     </div>
-
     <ul class="user-tabs">
       <li class="active"><%= link_to "投稿", "/users/#{@user.id}" %></li>
       <li><%= link_to "いいね", "/users/#{@user.id}/likes" %></li>
     </ul>
-
     <% @user.posts.order(created_at: :desc).each do |post| %>
-    <div class="posts-index-item">
-      <div class="post-head">
-        <a href="<%= "/users/#{post.user_id}" %>">
-          <img src="<%= post.user.image %>">
-          <p><%= post.user.name %></p>
-        </a>
-      </div>
-      <div class="post-body">
-        <a href="<%= "/posts/#{post.id}" %>">
-          <img src="<%= post.image %>">
-          <p>
-            <%= simple_format(post.comment) %>
-          </p>
-        </a>
-        <div class="tag">
-          <% post.tags.each do |tag| %>
-          <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
-          <% end %>
+      <div class="posts-index-item">
+        <div class="post-head">
+          <a href="<%= "/users/#{post.user_id}" %>">
+            <img src="<%= post.user.image %>">
+            <p><%= post.user.name %></p>
+          </a>
+        </div>
+        <div class="post-body">
+          <a href="<%= "/posts/#{post.id}" %>">
+            <img src="<%= post.image %>">
+            <p>
+              <%= simple_format(post.comment) %>
+            </p>
+          </a>
+          <div class="tag">
+            <% post.tags.each do |tag| %>
+              <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
   </div>
 </div>

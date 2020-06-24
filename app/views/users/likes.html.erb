@@ -6,37 +6,35 @@
       <p><%= @user.email %></p>
       <p><%= simple_format(@user.description) %></p>
       <% if user_signed_in? && @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
-      <%= link_to "編集", "/users/edit" %>
+        <%= link_to "編集", "/users/edit" %>
       <% end %>
     </div>
-
     <ul class="user-tabs">
       <li><%= link_to "投稿", "/users/#{@user.id}" %></li>
       <li class="active"><%= link_to "いいね", "/users/#{@user.id}/likes" %></li>
     </ul>
-
     <% @user.likes.each do |like| %>
-    <div class="posts-index-item">
-      <div class="post-head">
-        <a href="<%= "/users/#{like.post.user_id}" %>">
-          <img src="<%= like.post.user.image %>">
-          <p><%= like.post.user.name %></p>
-        </a>
-      </div>
-      <div class="post-body">
-        <a href="<%= "/posts/#{like.post.id}" %>">
-          <img src="<%= like.post.image %>">
-          <p>
-            <%= simple_format(like.post.comment) %>
-          </p>
-        </a>
-        <div class="tag">
-          <% like.post.tags.each do |tag| %>
-          <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
-          <% end %>
+      <div class="posts-index-item">
+        <div class="post-head">
+          <a href="<%= "/users/#{like.post.user_id}" %>">
+            <img src="<%= like.post.user.image %>">
+            <p><%= like.post.user.name %></p>
+          </a>
+        </div>
+        <div class="post-body">
+          <a href="<%= "/posts/#{like.post.id}" %>">
+            <img src="<%= like.post.image %>">
+            <p>
+              <%= simple_format(like.post.comment) %>
+            </p>
+          </a>
+          <div class="tag">
+            <% like.post.tags.each do |tag| %>
+              <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+            <% end %>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
   </div>
 </div>

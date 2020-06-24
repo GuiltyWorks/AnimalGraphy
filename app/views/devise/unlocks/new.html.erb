@@ -3,21 +3,17 @@
     <div class="form">
       <div class="form-body">
         <h2>アカウントの凍結解除方法の再送</h2>
-
         <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "送信" %>
-        </div>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+          <div class="actions">
+            <%= f.submit "送信" %>
+          </div>
         <% end %>
       </div>
-
       <div class="devise-links">
         <%= render "devise/shared/links" %>
       </div>

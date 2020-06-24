@@ -14,67 +14,63 @@
         </p>
         <div class="tag">
           <% @post.tags.each do |tag| %>
-          <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+            <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
           <% end %>
         </div>
         <div class="post-time">
           <%= l @post.created_at %>
         </div>
-
         <% if user_signed_in? %>
-        <% if Like.find_by(user_id: current_user.id, post_id: @post.id) %>
-        <%= link_to like_path, { method: :delete } do %><span class="fa fa-heart like-btn-unlike"></span><% end %>
+          <% if Like.find_by(user_id: current_user.id, post_id: @post.id) %>
+            <%= link_to like_path, { method: :delete } do %><span class="fa fa-heart like-btn-unlike"></span><% end %>
+          <% else %>
+            <%= link_to likes_path(id: @post.id), { method: :post } do %><span class="fa fa-heart like-btn"></span><% end %>
+          <% end %>
         <% else %>
-        <%= link_to likes_path(id: @post.id), { method: :post } do %><span class="fa fa-heart like-btn"></span><% end %>
-        <% end %>
-        <% else %>
-        <span class="fa fa-heart like-btn-no-hover"></span>
+          <span class="fa fa-heart like-btn-no-hover"></span>
         <% end %>
         <p class="likes-count">
           <%= @post.likes.count %>
         </p>
         <% if user_signed_in? && @post.user_id == current_user.id %>
-        <div class="post-menus">
-          <%= link_to "編集", edit_post_path %>
-          <%= link_to "削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-        </div>
+          <div class="post-menus">
+            <%= link_to "編集", edit_post_path %>
+            <%= link_to "削除", @post, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          </div>
         <% end %>
       </div>
     </div>
-
     <% if user_signed_in? %>
-    <div class="posts-show-item">
-      <%= form_with model: @reply do |f| %>
-      <div class="form-body">
-        <%= render 'share/error' %>
-
-        <%= f.text_area :comment, rows: 5 %>
-        <%= f.submit "リプライ" %>
-      </div>
-      <% end %>
-    </div>
-    <% end %>
-
-    <% @replies.each do |reply| %>
-    <div class="posts-show-item">
-      <div class="reply-head">
-        <a href="<%= "/users/#{reply.user_id}" %>">
-          <img src="<%= reply.user.image %>">
-          <p><%= reply.user.name %></p>
-        </a>
-      </div>
-      <div class="reply-body">
-        <p>
-          <%= simple_format(reply.comment) %>
-        </p>
-        <% if user_signed_in? && reply.user_id == current_user.id %>
-        <div class="reply-menus">
-          <%= link_to "編集", "/replies/#{reply.id}/edit" %>
-          <%= link_to "削除", reply, method: :delete, data: { confirm: "本当に削除しますか？" } %>
-        </div>
+      <div class="posts-show-item">
+        <%= form_with model: @reply do |f| %>
+          <div class="form-body">
+            <%= render 'share/error' %>
+            <%= f.text_area :comment, rows: 5 %>
+            <%= f.submit "リプライ" %>
+          </div>
         <% end %>
       </div>
-    </div>
+    <% end %>
+    <% @replies.each do |reply| %>
+      <div class="posts-show-item">
+        <div class="reply-head">
+          <a href="<%= "/users/#{reply.user_id}" %>">
+            <img src="<%= reply.user.image %>">
+            <p><%= reply.user.name %></p>
+          </a>
+        </div>
+        <div class="reply-body">
+          <p>
+            <%= simple_format(reply.comment) %>
+          </p>
+          <% if user_signed_in? && reply.user_id == current_user.id %>
+            <div class="reply-menus">
+              <%= link_to "編集", "/replies/#{reply.id}/edit" %>
+              <%= link_to "削除", reply, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
