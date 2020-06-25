@@ -19,8 +19,8 @@ services:
         volumes:
             - .:/AnimalGraphy
             - public-data:/AnimalGraphy/public
-            - tmp-data:/AnimalGraphy/tmp
             - log-data:/AnimalGraphy/log
+            - tmp-data:/AnimalGraphy/tmp
         depends_on:
             - db
         stdin_open: true
@@ -36,8 +36,7 @@ services:
         depends_on:
             - web
 volumes:
-    public-data:
-    tmp-data:
-    log-data:
     mysql-data:
-        driver: local
+    public-data:
+    log-data:
+    tmp-data:

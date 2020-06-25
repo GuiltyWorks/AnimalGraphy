@@ -10,7 +10,8 @@ COPY ./Gemfile.lock $APP_ROOT/Gemfile.lock
 RUN apt update -qq && \
     apt install -y build-essential libpq-dev nodejs imagemagick && \
     gem install bundler && \
-    bundle install \
-    mkdir -p tmp/sockets
+    bundle install
 
 COPY . $APP_ROOT
+
+RUN mkdir -p log tmp/pids tmp/sockets
