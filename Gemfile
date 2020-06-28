@@ -141,6 +141,10 @@ group :development do
   # Add a comment summarizing the current schema
   # https://github.com/ctran/annotate_models
   gem 'annotate'
+
+  # The Bullet gem is designed to help you increase your application's performance by reducing the number of queries it makes.
+  # https://github.com/flyerhzm/bullet
+  gem 'bullet'
 end
 
 group :test do

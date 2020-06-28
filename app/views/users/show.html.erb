@@ -13,12 +13,12 @@
       <li class="active"><%= link_to "投稿", "/users/#{@user.id}" %></li>
       <li><%= link_to "いいね", "/users/#{@user.id}/likes" %></li>
     </ul>
-    <% @user.posts.order(created_at: :desc).each do |post| %>
+    <% @user.posts.includes(:tags).order(created_at: :desc).each do |post| %>
       <div class="posts-index-item">
         <div class="post-head">
-          <a href="<%= "/users/#{post.user_id}" %>">
-            <img src="<%= post.user.image %>">
-            <p><%= post.user.name %></p>
+          <a href="<%= "/users/#{@user.id}" %>">
+            <img src="<%= @user.image %>">
+            <p><%= @user.name %></p>
           </a>
         </div>
         <div class="post-body">
