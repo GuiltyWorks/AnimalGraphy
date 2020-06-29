@@ -8,7 +8,7 @@ COPY ./Gemfile $APP_ROOT/Gemfile
 COPY ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential libpq-dev nodejs imagemagick && \
+    apt-get install -y build-essential imagemagick libpq-dev nodejs vim && \
     gem install bundler && \
     bundle install
 
