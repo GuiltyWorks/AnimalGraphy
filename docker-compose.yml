@@ -5,6 +5,7 @@ services:
         environment:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            TZ: Asia/Tokyo
         ports:
             - "3306:3306"
         volumes:
@@ -14,6 +15,8 @@ services:
             context: .
         # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
         command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+        environment:
+            TZ: Asia/Tokyo
         ports:
             - "3000:3000"
         volumes:
@@ -28,6 +31,8 @@ services:
     nginx:
         build:
             context: ./containers/nginx
+        environment:
+            TZ: Asia/Tokyo
         ports:
             - 80:80
         volumes:
