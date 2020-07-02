@@ -38,7 +38,6 @@ class NewsController < ApplicationController
       active_list[tag.name] = "inactive"
     end
     active_list[key] = "active"
-
     return active_list
   end
 end

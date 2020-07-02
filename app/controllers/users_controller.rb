@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_target_user, { only: [ :show, :likes ] }
 
   def index
-    @users = User.all
+    @users = User.all.order(created_at: :desc).page(params[:page])
   end
 
   def show

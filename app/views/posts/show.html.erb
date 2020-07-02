@@ -45,6 +45,7 @@
         <%= form_with model: @reply do |f| %>
           <div class="form-body">
             <%= render 'share/error' %>
+            <%= f.hidden_field :post_id, value: @post.id %>
             <%= f.text_area :comment, rows: 5 %>
             <%= f.submit "リプライ" %>
           </div>

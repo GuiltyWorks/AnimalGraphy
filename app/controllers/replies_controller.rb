@@ -4,7 +4,7 @@ class RepliesController < ApplicationController
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def create
-    @reply = Reply.create(reply_params)
+    @reply = Reply.new(reply_params)
     if @reply.save
       redirect_to @reply.post
     else
@@ -39,7 +39,12 @@ class RepliesController < ApplicationController
   private
 
   def set_target_reply
-    @reply = Reply.find(params[:id])
+    @reply = Reply.find_by(id: params[:id])
+    if @reply.nil?
+      flash[:notice] = "リプライが見つかりませんでした。"
+      redirect_to posts_path
+      return
+    end
   end
 
   def ensure_correct_user

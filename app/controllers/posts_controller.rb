@@ -78,16 +78,16 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.tag_ids = detection(params[:post][:image].read) if params[:post][:image]
-
     if @post.save
       flash[:notice] = "投稿を作成しました。"
       redirect_to posts_path
+      ObjectDetectionWorker.perform_async(@post.id)
     else
       redirect_back fallback_location: new_post_path, flash: {
         post: @post,
         error_messages: @post.errors.full_messages,
       }
+      return
     end
   end
 
@@ -96,9 +96,18 @@ class PostsController < ApplicationController
   end
 
   def update
-    unless params[:post][:image]
+    if params[:post][:image]
+      if @post.update(post_params)
+        flash[:notice] = "投稿を編集しました。"
+        redirect_to @post
+      else
+        redirect_back fallback_location: edit_post_path, flash: {
+          post: @post,
+          error_messages: @post.errors.full_messages,
+        }
+      end
+    else
       @post.comment = params[:post][:comment]
-
       if @post.save
         flash[:notice] = "投稿を編集しました。"
         redirect_to @post
@@ -108,19 +117,7 @@ class PostsController < ApplicationController
           error_messages: @post.errors.full_messages,
         }
       end
-
       return
-    end
-
-    @post.tag_ids = detection(params[:post][:image].read)
-    if @post.update(post_params)
-      flash[:notice] = "投稿を編集しました。"
-      redirect_to @post
-    else
-      redirect_back fallback_location: edit_post_path, flash: {
-        post: @post,
-        error_messages: @post.errors.full_messages,
-      }
     end
   end
 
