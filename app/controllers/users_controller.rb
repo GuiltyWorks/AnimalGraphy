@@ -6,9 +6,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    @posts = @user.posts.includes(:tags).order(created_at: :desc).page(params[:page])
   end
 
   def likes
+    @posts = Kaminari.paginate_array(@user.likes.includes(post: [ :user, :tags ]).order(created_at: :desc).map(&:post)).page(params[:page])
   end
 
   private

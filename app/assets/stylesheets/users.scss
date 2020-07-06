@@ -1,190 +1,39 @@
-// --------/users/index--------
 .users-index-item {
   background-color: white;
   box-shadow: 0 2px 6px #d1d1d1;
-  display: table;
-  overflow: hidden;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.user-item {
   width: 100%;
-  padding: 20px 20px;
-  margin-bottom: 10px;
+}
+
+.user-item img {
+  box-shadow: 0 2px 6px #d1d1d1;
+  border-radius: 25%;
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+.user-item p {
+  color: black;
+  text-decoration: none;
+  align-items: center;
+  display: flex;
+  height: 50px;
+  padding-left: 1rem;
+}
+
+.user-profile img {
+  box-shadow: 0 2px 6px #d1d1d1;
+  border-radius: 25%;
+  width: 100px;
+  height: 100px;
 }
 
 .pagenate {
   background-color: transparent;
   box-shadow: none;
-}
-
-.users-index-item img {
-  box-shadow: 0 2px 6px #d1d1d1;
-  border-radius: 25%;
-  transition-duration: 0.25s;
-  float: left;
-  object-fit: cover;
-  width: 50px;
-  height: 50px;
-}
-
-.users-index-item img:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-.users-index-item p {
-  color: black;
-  font-size: 22px;
-  transition-duration: 0.25s;
-  float: left;
-  height: 50px;
-  padding: 10px 0 10px 10px;
-}
-
-.users-index-item p:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-// --------/users/show--------
-.users-show .container {
-  width: 530px;
-  max-width: 530px;
-}
-
-// user
-.user {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.user img {
-  box-shadow: 0 2px 6px #d1d1d1;
-  border-radius: 25%;
-  object-fit: cover;
-  width: 75px;
-  height: 75px;
-  margin-bottom: 10px;
-}
-
-.user h2 {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.user p {
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.user a {
-  color: #808080;
-  font-weight: 200;
-  transition-duration: 0.25s;
-}
-
-.user a:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-.user span {
-  color: #afb6bf;
-  font-weight: 200;
-  padding: 0 6px 0 8px;
-}
-
-// user-tabs
-.user-tabs {
-  background-color: white;
-  box-shadow: 0 2px 6px #d1d1d1;
-  overflow: hidden;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.user-tabs li {
-  float: left;
-}
-
-.user-tabs li.active {
-  border-bottom: 2px solid #10c000;
-}
-
-.user-tabs li.active a {
-  color: #57575f;
-}
-
-.user-tabs a {
-  color: #808080;
-  display: inline-block;
-  padding: 16px 30px;
-}
-
-.posts-index-item .post-body .tag {
-  font-size: 20px;
-  word-break: keep-all;
-  float: left;
-  width: 100%;
-}
-
-// --------/users/new, /users/edit--------
-.users-new .form .form-body p,
-.users-edit .form .form-body p {
-  font-size: 20px;
-}
-
-.users-new .form .form-body input,
-.users-edit .form .form-body input {
-  margin-bottom: 10px;
-}
-
-.users-new .form .form-body input[type="submit"],
-.users-edit .form .form-body input[type="submit"] {
-  margin: 0;
-}
-
-.users-edit .form .form-body .delete {
-  text-align: center;
-  clear: right;
-  margin: 100px auto 0;
-}
-
-.users-edit .form .form-body .delete a {
-  color: red;
-  transition-duration: 0.25s;
-}
-
-.users-edit .form .form-body .delete a:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-// --------delete--------
-.users-delete .form .form-body {
-  text-align: center;
-}
-
-.users-delete .form .form-body .delete {
-  text-align: center;
-  width: 100%;
-  margin-top: 50px;
-}
-
-.users-delete .form .form-body a {
-  background-color: #f8f8f8;
-  font-weight: bold;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  display: inline-block;
-  width: 150px;
-  padding: 10px;
-  margin: 0 50px;
-}
-
-.users-delete .form .form-body .delete .delete-button {
-  color: red;
-}
-
-.users-delete .form .form-body .delete .cancel-button {
-  color: black;
 }

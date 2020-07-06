@@ -1,0 +1,24 @@
+<% if replies %>
+  <% replies.each do |reply| %>
+    <div class="reply-item">
+      <div class="reply-head mb-3">
+        <a href="<%= "/users/#{reply.user_id}" %>" class="user-item">
+          <img src="<%= reply.user.image %>" class="user-image">
+          <p class="user-name"><%= reply.user.name %></p>
+        </a>
+      </div>
+      <div class="reply-body mb-4">
+        <p><%= simple_format reply.comment %></p>
+        <% if user_signed_in? && reply.user_id == current_user.id %>
+          <div class="reply-menus float-right">
+            <%= link_to "編集", "/replies/#{reply.id}/edit" %>
+            <%= link_to "削除", reply, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="pagenate">
+    <%= paginate replies %>
+  </div>
+<% end %>

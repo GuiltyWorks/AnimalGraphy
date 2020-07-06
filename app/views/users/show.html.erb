@@ -1,40 +1,24 @@
 <div class="main users-show">
-  <div class="container">
-    <div class="user">
-      <img src="<%= @user.image %>">
-      <h2><%= @user.name %></h2>
-      <p><%= @user.email %></p>
-      <p><%= simple_format(@user.description) %></p>
-      <% if user_signed_in? && @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
-        <%= link_to "編集", "/users/edit" %>
-      <% end %>
+  <div class="container row w-75">
+    <div class="main-menu col-9">
+      <div class="user-profile text-center mb-4">
+        <img src="<%= @user.image %>" class="mb-3">
+        <h1><%= @user.name %></h1>
+        <p><%= @user.email %></p>
+        <p><%= simple_format @user.description %></p>
+        <% if user_signed_in? && @user.id == current_user.id && current_user.email != "guest@guestmail.com" %>
+          <%= link_to "編集", "/users/edit" %>
+        <% end %>
+      </div>
+      <%= render partial: "posts/post", locals: { posts: @posts } %>
     </div>
-    <ul class="user-tabs">
-      <li class="active"><%= link_to "投稿", "/users/#{@user.id}" %></li>
-      <li><%= link_to "いいね", "/users/#{@user.id}/likes" %></li>
-    </ul>
-    <% @user.posts.includes(:tags).order(created_at: :desc).each do |post| %>
-      <div class="posts-index-item">
-        <div class="post-head">
-          <a href="<%= "/users/#{@user.id}" %>">
-            <img src="<%= @user.image %>">
-            <p><%= @user.name %></p>
-          </a>
-        </div>
-        <div class="post-body">
-          <a href="<%= "/posts/#{post.id}" %>">
-            <img src="<%= post.image %>">
-            <p>
-              <%= simple_format(post.comment) %>
-            </p>
-          </a>
-          <div class="tag">
-            <% post.tags.each do |tag| %>
-              <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
-            <% end %>
-          </div>
+    <div class="sub-menu col-3">
+      <div class="sub-menu-item sidebar_fixed">
+        <div class="list-group">
+          <%= link_to "投稿", "/users/#{@user.id}", class: "active text-decoration-none list-group-item list-group-item-action" %>
+          <%= link_to "いいね", "/users/#{@user.id}/likes", class: "text-decoration-none list-group-item list-group-item-action" %>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

@@ -6,12 +6,15 @@ class RepliesController < ApplicationController
   def create
     @reply = Reply.new(reply_params)
     if @reply.save
-      redirect_to @reply.post
+      @saved = true
+      @replies = Reply.where(post_id: params[:reply][:post_id]).includes(:user).page(params[:page])
     else
-      redirect_back fallback_location: @reply.post, flash: {
-        reply: @reply,
-        error_messages: @reply.errors.full_messages,
-      }
+      @saved = false
+      @error_messages = @reply.errors.full_messages
+      # redirect_back fallback_location: @reply.post, flash: {
+      #  reply: @reply,
+      #  error_messages: @reply.errors.full_messages,
+      # }
     end
   end
 
@@ -21,10 +24,10 @@ class RepliesController < ApplicationController
 
   def update
     if @reply.update(reply_params)
-      flash[:notice] = "リプライを編集しました。"
-      redirect_to @reply.post
+      redirect_to @reply.post, notice: "リプライを編集しました。"
     else
       redirect_back fallback_location: edit_reply_path(@reply), flash: {
+        notice: "リプライの編集に失敗しました。",
         reply: @reply,
         error_messages: @reply.errors.full_messages,
       }
@@ -41,17 +44,13 @@ class RepliesController < ApplicationController
   def set_target_reply
     @reply = Reply.find_by(id: params[:id])
     if @reply.nil?
-      flash[:notice] = "リプライが見つかりませんでした。"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "リプライが見つかりませんでした。"
       return
     end
   end
 
   def ensure_correct_user
-    if @reply.user_id != current_user.id
-      flash[:notice] = "権限がありません。"
-      redirect_to posts_path
-    end
+    redirect_to posts_path, notice: "権限がありません。" if @reply.user_id != current_user.id
   end
 
   def reply_params

@@ -1,0 +1,8 @@
+$(function () {
+  if (<%= @saved %>) {
+    $("textarea").val("");
+    $(".replies").html("<%= escape_javascript(render 'replies/reply', replies: @replies) %>");
+  } else {
+    $(".form-error").html("<%= escape_javascript(render 'share/error', error_messages: @error_messages) %>");
+  }
+});

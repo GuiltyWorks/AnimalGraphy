@@ -1,95 +1,17 @@
-// --------/news/:key--------
-.news-index {
-  display: table;
-  padding: 64px 20% 0 20%;
-}
-
-.news-index .container {
-  display: table-cell;
-  width: 75%;
-  max-width: 75%;
-  padding: 0;
-}
-
-.news-index .sub-menu {
-  display: table-cell;
-  position: relative;
-  height: auto;
-}
-
-.news-index .sub-menu-item {
-  background-color: white;
-  position: fixed;
-  height: auto;
-  padding: 20px;
-  margin: 20px;
-}
-
-.news-index .sub-menu .sub-menu-item h2 {
-  margin-top: 50px;
-}
-
-.news-index .sub-menu .sub-menu-item a {
-  display: block;
-  margin: 10px 0;
-  transition-duration: 0.25s;
-}
-
-.news-index .sub-menu .sub-menu-item a:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-.news-index .sub-menu .sub-menu-item a.active {
-  border-bottom: 2px solid #10c000;
-}
-
-.news-index-item {
-  background-color: white;
+.news-index-item img {
   box-shadow: 0 2px 6px #d1d1d1;
-  overflow: hidden;
-  align-self: center;
-  justify-self: center;
-  height: 150px;
-  padding: 20px;
-  margin: 20px auto;
-  margin-bottom: 10px;
-}
-
-// news-body
-.news-body {
-  float: left;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.news-body a {
-  float: left;
-}
-
-.news-body img {
-  box-shadow: 0 2px 6px #d1d1d1;
-  border-radius: 25%;
-  transition-duration: 0.25s;
-  float: left;
-  object-fit: cover;
+  border-radius: 10%;
   width: 100px;
   height: 100px;
 }
 
-.news-body img:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
+.news-index-item p {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  padding-left: 1rem;
 }
 
-.news-body p {
-  color: black;
-  font-size: 22px;
-  transition-duration: 0.25s;
-  margin-left: 110px;
-}
-
-.news-body p:hover {
+.news-index-item p:hover {
   opacity: 0.5;
-  transition-duration: 0.25s;
 }

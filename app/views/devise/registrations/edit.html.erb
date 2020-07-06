@@ -1,8 +1,8 @@
 <div class="main devise">
-  <div class="container">
+  <div class="container w-50">
     <div class="form">
       <div class="form-body">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           <div class="field">
             <%= f.label :image, "画像（変更を希望しない場合選択不要）" %><br />
@@ -27,8 +27,8 @@
             <%= f.label :tag_ids, "フォローするタグ" %>
             <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
               <div class="form-check">
-                <%= tag.label class: 'form-check-label' do %>
-                  <%= tag.check_box class: 'form-check-input' %>
+                <%= tag.label class: "form-check-label" do %>
+                  <%= tag.check_box class: "form-check-input" %>
                   <%= tag.text %>
                 <% end %>
               </div>

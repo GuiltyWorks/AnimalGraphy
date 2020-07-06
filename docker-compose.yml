@@ -16,6 +16,8 @@ services:
             TZ: Asia/Tokyo
         ports:
             - "6379:6379"
+        volumes:
+            - redis-data:/data
     web:
         build:
             context: .
@@ -63,6 +65,7 @@ services:
             - worker
 volumes:
     mysql-data:
+    redis-data:
     public-data:
     log-data:
     tmp-data:

@@ -1,0 +1,11 @@
+$(function () {
+  if (<%= @saved %>) {
+    $("textarea").val("");
+    $('#postModal').modal('hide');
+    if (<%= @from_posts_path %>) {
+      $(".main-menu").html("<%= escape_javascript(render 'post', posts: @posts) %>");
+    }
+  } else {
+    $(".form-error").html("<%= escape_javascript(render 'share/error', error_messages: @error_messages) %>");
+  }
+});

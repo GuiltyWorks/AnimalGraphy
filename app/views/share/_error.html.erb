@@ -1,6 +1,6 @@
-<% if flash[:error_messages]  %>
-  <% flash[:error_messages].each do |message|  %>
-    <div class="form-error">
+<% if error_messages %>
+  <% error_messages.each do |message|  %>
+    <div class="form-error-item">
       <%= message %>
     </div>
   <% end %>

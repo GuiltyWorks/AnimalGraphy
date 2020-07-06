@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, { only: [ :new, :create, :edit, :update, :destroy ] }
+  before_action :create_new_post, { only: [ :index, :search, :ranking, :tags ] }
   before_action :set_target_post, { only: [ :show, :edit, :update, :destroy ] }
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
@@ -26,7 +27,6 @@ class PostsController < ApplicationController
 
     @posts = @posts.includes(:user, :tags).order(created_at: :desc).page(params[:page])
     @active_list = make_active_list(nil)
-    render "posts/index"
   end
 
   def ranking
@@ -43,33 +43,28 @@ class PostsController < ApplicationController
       period = Date.today.in_time_zone.all_day
       ranking = Like.where(created_at: period).group(:post_id).order("count(post_id) desc").limit(10).pluck(:post_id)
     else
-      flash[:notice] = "ランキングが見つかりませんでした。"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "ランキングが見つかりませんでした。"
       return
     end
 
     @posts = Kaminari.paginate_array(Post.includes(:user, :tags).find(ranking)).page(params[:page])
     @active_list = make_active_list(params[:period])
-    render "posts/index"
   end
 
   def tags
     tag = Tag.find_by(id: params[:id])
     if tag.nil?
-      flash[:notice] = "タグが見つかりませんでした。"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "タグが見つかりませんでした。"
       return
     end
 
     @posts = tag.posts.includes(:user, :tags).order(created_at: :desc).page(params[:page])
     @active_list = make_active_list(Tag.find(params[:id]).name)
-    render "posts/index"
   end
 
   def show
     @reply = Reply.new(post_id: @post.id)
     @reply.attributes = flash[:reply] if flash[:reply]
-    @replies = Reply.where(post_id: params[:id]).order(created_at: :desc)
   end
 
   def new
@@ -78,16 +73,20 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @posts = Post.none.page(params[:page])
     if @post.save
-      flash[:notice] = "投稿を作成しました。"
-      redirect_to posts_path
+      @saved = true
+      if params[:post][:from_path] == posts_path
+        @from_posts_path = true
+        @posts = Post.all.includes(:user, :tags).order(created_at: :desc).page(params[:page])
+      else
+        @from_posts_path = false
+      end
       ObjectDetectionWorker.perform_async(@post.id)
     else
-      redirect_back fallback_location: new_post_path, flash: {
-        post: @post,
-        error_messages: @post.errors.full_messages,
-      }
-      return
+      @saved = false
+      @from_posts_path = false
+      @error_messages = @post.errors.full_messages
     end
   end
 
@@ -98,8 +97,8 @@ class PostsController < ApplicationController
   def update
     if params[:post][:image]
       if @post.update(post_params)
-        flash[:notice] = "投稿を編集しました。"
-        redirect_to @post
+        redirect_to @post, notice: "投稿を編集しました。"
+        ObjectDetectionWorker.perform_async(@post.id)
       else
         redirect_back fallback_location: edit_post_path, flash: {
           post: @post,
@@ -109,8 +108,7 @@ class PostsController < ApplicationController
     else
       @post.comment = params[:post][:comment]
       if @post.save
-        flash[:notice] = "投稿を編集しました。"
-        redirect_to @post
+        redirect_to @post, notice: "投稿を編集しました。"
       else
         redirect_back fallback_location: edit_post_path, flash: {
           post: @post,
@@ -123,26 +121,25 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:notice] = "投稿を削除しました。"
-    redirect_to posts_path
+    redirect_to posts_path, notice: "投稿を削除しました。"
   end
 
   private
 
+  def create_new_post
+    @post = Post.new(flash[:post])
+  end
+
   def set_target_post
     @post = Post.find_by(id: params[:id])
     if @post.nil?
-      flash[:notice] = "投稿が見つかりませんでした。"
-      redirect_to posts_path
+      redirect_to posts_path, notice: "投稿が見つかりませんでした。"
       return
     end
   end
 
   def ensure_correct_user
-    if @post.user_id != current_user.id
-      flash[:notice] = "権限がありません。"
-      redirect_to posts_path
-    end
+    redirect_to posts_path, notice: "権限がありません。" if @post.user_id != current_user.id
   end
 
   def post_params
@@ -159,41 +156,8 @@ class PostsController < ApplicationController
     Tag.all.each do |tag|
       active_list[tag.name] = "inactive"
     end
-    active_list[key] = "active"
+    active_list[key] = "active" unless key.nil?
 
     return active_list
-  end
-
-  def detection(binary_image)
-    model = OnnxRuntime::Model.new("public/object_detection/yolov3.onnx")
-    labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt").map(&:chomp)
-
-    img = MiniMagick::Image.read(binary_image)
-    image_size = [ [ img.height, img.width ] ]
-    img.combine_options do |b|
-      b.resize "416x416"
-      b.gravity "center"
-      b.background "transparent"
-      b.extent "416x416"
-    end
-    img_data = Numo::SFloat.cast(img.get_pixels)
-    img_data /= 255.0
-    image_data = img_data.transpose(2, 0, 1).expand_dims(0).to_a
-    output = model.predict(input_1: image_data, image_shape: image_size) # 物体検出
-    boxes, scores, indices = output.values
-    results = indices.map { |idx| { class: idx[1], score: scores[idx[0]][idx[1]][idx[2]], box: boxes[idx[0]][idx[2]] } }
-
-    tag_ids = []
-    results.each do |r|
-      label = labels[r[:class]]
-      score = r[:score]
-      # 判定結果が動物かつ確率が50%以上の場合のみ検出扱い
-      if label != "other" && score > 0.5
-        tag = Tag.find_by(name: label)
-        tag_ids.push(tag&.id)
-      end
-    end
-
-    return tag_ids.compact
   end
 end

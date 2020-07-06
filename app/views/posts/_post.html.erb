@@ -1,0 +1,26 @@
+<% if posts %>
+  <% posts.each do |post| %>
+    <div class="post-item">
+      <div class="post-head mb-3">
+        <a href="<%= "/users/#{post.user_id}" %>" class="user-item">
+          <img src="<%= post.user.image %>" class="user-image">
+          <p class="user-name"><%= post.user.name %></p>
+        </a>
+      </div>
+      <div class="post-body">
+        <a href="<%= "/posts/#{post.id}" %>">
+          <img src="<%= post.image %>">
+        </a>
+        <%= simple_format post.comment %>
+        <div class="tag">
+          <% post.tags.each do |tag| %>
+            <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="pagenate">
+    <%= paginate posts %>
+  </div>
+<% end %>

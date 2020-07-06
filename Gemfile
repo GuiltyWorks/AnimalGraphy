@@ -50,7 +50,7 @@ gem 'ffi', '1.12.2'
 
 # Bootstrap 4 ruby gem for Ruby on Rails (Sprockets) and Hanami (formerly Lotus).
 # https://github.com/twbs/bootstrap-rubygem
-gem 'bootstrap'
+gem 'bootstrap', '~> 4.5.0'
 
 # jQuery for Rails
 # https://github.com/rails/jquery-rails
@@ -66,7 +66,7 @@ gem 'nokogiri'
 
 # This gem provides a simple and extremely flexible way to upload files from Ruby applications.
 # https://github.com/carrierwaveuploader/carrierwave
-gem 'carrierwave'
+gem 'carrierwave', '~> 2.0'
 
 # Complete geocoding solution for Ruby.
 # https://github.com/alexreisner/geocoder

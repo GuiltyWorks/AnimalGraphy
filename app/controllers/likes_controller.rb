@@ -4,18 +4,22 @@ class LikesController < ApplicationController
   def create
     if Like.find_by(user_id: current_user.id, post_id: params[:id])
       flash[:notice] = "いいね済みです。"
-      redirect_to "/posts/#{params[:id]}"
       return
     end
-
     like = Like.new(user_id: current_user.id, post_id: params[:id])
     like.save
-    redirect_to like.post
+    @liked = true
+    @post_id = params[:id]
+    @likes_count = Like.where(post_id: params[:id]).count
+    render "posts/like.js.erb"
   end
 
   def destroy
     like = Like.find_by(user_id: current_user.id, post_id: params[:id])
     like.destroy
-    redirect_to like.post
+    @liked = false
+    @post_id = params[:id]
+    @likes_count = Like.where(post_id: params[:id]).count
+    render "posts/like.js.erb"
   end
 end

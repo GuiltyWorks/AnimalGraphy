@@ -1,28 +1,72 @@
-<div class="main posts-index">
-  <div class="container">
-    <% @tags.each do |tag| %>
-      <% post = Post.find(tag.post_id) %>
-      <div class="posts-index-item">
-        <div class="post-head">
-          <a href="<%= "/users/#{post.user_id}" %>">
-            <img src="<%= post.user.image %>">
-            <p><%= post.user.name %></p>
-          </a>
-        </div>
-        <div class="post-body">
-          <a href="<%= "/posts/#{post.id}" %>">
-            <img src="<%= post.image %>">
-            <p>
-              <%= simple_format(post.comment) %>
-            </p>
-          </a>
-          <div class="tag">
-            <% post.tags.each do |tag| %>
-              <%= link_to tag.name, "/posts/tags/#{tag.id}" %>
+<div class="main posts-tags">
+  <div class="container row w-75">
+    <div class="main-menu col-9">
+      <%= render partial: "post", locals: { posts: @posts } %>
+    </div>
+    <div class="sub-menu col-3">
+      <div class="sub-menu-item sidebar_fixed">
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-primary font-weight-bold w-100 mb-4" data-toggle="modal" data-target="#postModal">新規投稿</button>
+        <% end %>
+        <%= form_tag "/posts/search", { method: :get, enforce_utf8: false } do %>
+          <div class="input-group md-form form-sm form-2 pl-0">
+            <%= text_field_tag :keyword, "", class: "form-control my-0 py-1", placeholder: "検索", "aria-lable": "Search" %>
+            <div class="input-group-append">
+              <%= button_tag name: nil, class: "btn btn-primary" do %>
+                <i class="fas fa-search text-grey" aria-hidden="true"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <div class="topics">
+          <h2 class="mt-4 mb-2">ランキング</h2>
+          <div class="list-group">
+            <%= link_to "全投稿のいいねランキング", "/posts/ranking/all", class: "#{@active_list["all"]} text-decoration-none list-group-item list-group-item-action" %>
+            <%= link_to "今月のランキング", "/posts/ranking/monthly", class: "#{@active_list["monthly"]} text-decoration-none list-group-item list-group-item-action" %>
+            <%= link_to "今週のランキング", "/posts/ranking/weekly", class: "#{@active_list["weekly"]} text-decoration-none list-group-item list-group-item-action" %>
+            <%= link_to "今日のランキング", "/posts/ranking/daily", class: "#{@active_list["daily"]} text-decoration-none list-group-item list-group-item-action" %>
+          </div>
+          <h2 class="mt-4 mb-2">タグ</h2>
+          <div class="list-group">
+            <% Tag.all.each do |tag| %>
+              <%= link_to tag.name, "/posts/tags/#{tag.id}", class: "#{@active_list[tag.name]} text-decoration-none list-group-item list-group-item-action" %>
             <% end %>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+  </div>
+</div>
+<% #Modal %>
+<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="postModalLabel">新規投稿</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: @post, remote: true do |f| %>
+        <div class="modal-body">
+          <div class="form-error">
+            <%= render partial: "share/error", locals: { error_messages: @error_messages } %>
+          </div>
+          <div class="form-group">
+            <%= f.label :image, "画像" %>
+            <%= f.file_field :image, class: "w-100" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :comment, "コメント" %>
+            <%= f.text_area :comment, rows: 10, class: "w-100" %>
+          </div>
+          <%= f.hidden_field :from_path, value: request.fullpath %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+          <%= f.submit "投稿", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

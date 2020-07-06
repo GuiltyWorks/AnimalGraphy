@@ -1,29 +1,6 @@
-// --------/replies/edit--------
-.replies-edit .container .replies-edit-item {
+.reply-item {
   background-color: white;
   box-shadow: 0 2px 6px #d1d1d1;
-  max-width: 650px;
-  margin: 0;
-}
-
-.replies-edit .container .replies-edit-item p {
-  font-size: 20px;
-}
-
-.replies-edit .container .replies-edit-item input[type="file"] {
-  margin-bottom: 10px;
-}
-
-.replies-edit .container .replies-edit-item textarea {
-  font-size: 20px;
-  border: 1px solid #dfdfdf;
-  resize: none;
-  min-height: 160px;
-  padding: 0;
-  margin-bottom: 10px;
-}
-
-.replies-edit .container .replies-edit-item textarea::-webkit-input-placeholder {
-  font-size: 22px;
-  opacity: 0.5;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }

@@ -3,8 +3,8 @@
   <head>
     <title>AnimalGraphy</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
   </head>
@@ -15,58 +15,27 @@
       </div>
       <ul class="header-menus">
         <% if user_signed_in? %>
-          <li>
-            <%= link_to "アカウント : #{current_user.name}", "/users/#{current_user.id}" %>
-          </li>
-          <li>
-            <%= link_to "新規投稿", new_post_path %>
-          </li>
-          <li>
-            <%= link_to "タイムライン", posts_path %>
-          </li>
-          <li>
-            <%= link_to "ニュース", "/news/general" %>
-          </li>
-          <li>
-            <%= link_to "近くの動物園", zoo_path %>
-          </li>
-          <li>
-            <%= link_to "ユーザー", users_index_path %>
-          </li>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path, { method: :delete } %>
-          </li>
+          <li><%= link_to "アカウント : #{current_user.name}", "/users/#{current_user.id}" %></li>
+          <li><%= link_to "タイムライン", posts_path %></li>
+          <li><%= link_to "ニュース", "/news/general" %></li>
+          <li><%= link_to "近くの動物園", zoo_path %></li>
+          <li><%= link_to "ユーザー", users_index_path %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, { method: :delete } %></li>
         <% else %>
-          <li>
-            <%= link_to "タイムライン", posts_path %>
-          </li>
-          <li>
-            <%= link_to "ニュース", "/news/general" %>
-          </li>
-          <li>
-            <%= link_to "近くの動物園", zoo_path %>
-          </li>
-          <li>
-            <%= link_to "ユーザー", users_index_path %>
-          </li>
-          <li>
-            <%= link_to "新規登録", new_user_registration_path %>
-          </li>
-          <li>
-            <%= link_to "ログイン", new_user_session_path %>
-          </li>
+          <li><%= link_to "タイムライン", posts_path %></li>
+          <li><%= link_to "ニュース", "/news/general" %></li>
+          <li><%= link_to "近くの動物園", zoo_path %></li>
+          <li><%= link_to "ユーザー", users_index_path %></li>
+          <li><%= link_to "新規登録", new_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
         <% end %>
       </ul>
     </header>
     <% if flash[:notice] %>
-      <div class="flash">
-        <%= flash[:notice] %>
-      </div>
+      <div class="flash"><%= flash[:notice] %></div>
     <% end %>
     <% if flash[:alert] %>
-      <div class="flash">
-        <%= flash[:alert] %>
-      </div>
+      <div class="flash"><%= flash[:alert] %></div>
     <% end %>
     <%= yield %>
   </body>

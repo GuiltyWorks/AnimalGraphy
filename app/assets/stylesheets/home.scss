@@ -17,9 +17,14 @@ li {
 }
 
 a {
-  color: #808080;
-  font-size: 16px;
+  font-size: 20px;
   text-decoration: none;
+  transition-duration: 0.25s;
+}
+
+a:hover {
+  text-decoration: none;
+  opacity: 0.5;
 }
 
 h1,
@@ -29,7 +34,7 @@ h4,
 h5,
 h6,
 p {
-  font-size: 18px;
+  font-size: 22px;
   margin: 0;
 }
 
@@ -41,6 +46,10 @@ input {
 form input[type="submit"] {
   border: none;
   cursor: pointer;
+}
+
+form {
+  margin-bottom: 1rem;
 }
 
 body {
@@ -59,10 +68,6 @@ body {
 }
 
 .container {
-  clear: both;
-  max-width: 650px;
-  padding-left: 15px;
-  padding-right: 15px;
   margin: 20px auto;
 }
 
@@ -128,101 +133,22 @@ header {
   padding-right: 5px;
 }
 
-.header-menus input[type="submit"] {
-  color: white;
-  font-size: 20px;
-  line-height: 64px;
-  float: left;
-  padding: 0 20px;
-  margin: 0;
-}
-
-// --------top--------
-.top {
-  color: white;
-  background-color: #ffe5f5;
-  background-size: cover;
-  background-position: center 50%;
-  background-repeat: no-repeat;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  min-height: 100%;
-  padding: 100px;
-}
-
-.top .container {
-  background-color: #fccbe8;
-  text-align: center;
-  max-width: 100%;
-  padding: 100px 0;
-  margin: 0 5%;
-}
-
-.top h1 {
-  color: white;
-  font-size: 72px;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-  margin-bottom: 20px;
-}
-
-.top p {
-  color: white;
-  font-size: 26px;
-  -webkit-font-smoothing: antialiased;
-  margin-bottom: 200px;
-}
-
-.top i {
-  font-size: 26px;
-  line-height: 1.5;
-  transition-duration: 0.25s;
-}
-
-.top i:hover {
-  opacity: 0.5;
-  transition-duration: 0.25s;
-}
-
-// --------about--------
-
-.about-main {
-  color: white;
-  padding: 180px 8% 0;
-}
-
-.about-main h2 {
-  font-size: 64px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.about-main p {
-  font-size: 20px;
-  font-weight: 200;
-}
-
-.about-img {
-  width: 84%;
-}
-
 // ----Form----
 .form {
   background-color: white;
   box-shadow: 0 2px 6px #d1d1d1;
   max-width: 650px;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .form-body {
+  background-color: white;
   font-size: 0;
   padding: 20px;
 }
 
-.form-error {
-  font-size: 20px;
+.form-error-item {
+  font-size: 18px;
   color: red;
 }
 
@@ -251,7 +177,7 @@ header {
   color: white;
   background-color: #0080ff;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   width: 150px;
   float: right;
