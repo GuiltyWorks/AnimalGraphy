@@ -24,7 +24,9 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 * WEBフレームワーク : Ruby on Rails 5.2.4.3
 
-* テスト環境 : Minitest 5.14.1
+* テスト環境 : Rspec 4.0.1
+
+* 静的解析ツール : RuboCop 0.85.1
 
 * 学習済みモデル : YOLOv3
 
@@ -38,23 +40,34 @@ AnimalGraphyは、あなたの好みにあった動物の写真を自由に投�
 
 ## 実行方法
 
-起動
+### 事前準備
 
-`docker-compose up`
+学習済みモデルをダウンロードし、public/object_detectionディレクトリ内に配置
 
-停止
+ダウンロード(ミラー) : https://drive.google.com/file/d/1hvfZgLUiykk-v2JaA2oma8U4mZb7NZG1/view?usp=sharing
+
+ダウンロード(公式) : https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov3
+
+※公式サイトからダウンロードする場合ファイル名をyolov3.onnxに変更する必要があるため、ミラーサイトからのダウンロードを推奨
+
+.env_sampleファイルの名前を.envに変更し、適宜環境変数を設定
+
+### 起動
+
+`docker-compose up -d`
+
+### 停止
 
 `docker-compose down`
 
-ビルド
+### ビルド
 
 `docker-compose build`
 
-データベースの作成
+### データベースの作成
 
 `docker-compose run web rails db:create`
+
 `docker-compose run web rails db:migrate`
 
-※学習済みモデルをダウンロードし、public/object_detectionディレクトリ内に配置
-
-ダウンロード : https://github.com/onnx/models/tree/master/vision/object_detection_segmentation/yolov3
+`docker-compose run web rails db:seed`
