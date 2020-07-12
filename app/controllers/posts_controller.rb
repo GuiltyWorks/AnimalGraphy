@@ -79,6 +79,8 @@ class PostsController < ApplicationController
       if params[:post][:from_path] == posts_path
         @from_posts_path = true
         @posts = Post.all.includes(:user, :tags).order(created_at: :desc).page(params[:page])
+      elsif params[:post][:from_path] == new_post_path || params[:post][:from_path].nil?
+        redirect_to posts_path, notice: "投稿を作成しました。"
       else
         @from_posts_path = false
       end

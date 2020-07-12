@@ -2,11 +2,12 @@
   <div class="container w-50">
     <%= form_with model: @post do |f| %>
       <div class="form-body">
-        <%= render "share/error" %>
+        <div class="form-error"></div>
         <%= f.label :image, "画像" %>
         <%= f.file_field :image, class: "mb-2" %>
         <%= f.label :comment, "コメント" %>
         <%= f.text_area :comment, rows: 10, class: "mb-3" %>
+        <%= f.hidden_field :from_path, value: request.fullpath %>
         <%= f.submit "投稿" %>
       </div>
     <% end %>

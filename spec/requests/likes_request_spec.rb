@@ -35,8 +35,7 @@ RSpec.describe "Likes", type: :request do
 
       it "returns a 302 response" do
         post likes_path, params: { id: @post.id }
-        expect(response).to have_http_status 302
-        expect(response).to redirect_to "/posts/#{@post.id}"
+        expect(response).to have_http_status 200
       end
     end
   end
@@ -72,8 +71,7 @@ RSpec.describe "Likes", type: :request do
       it "returns a 302 response" do
         sign_in user
         post likes_path, params: { id: @post.id }
-        expect(response).to have_http_status 302
-        expect(response).to redirect_to "/posts/#{@post.id}"
+        expect(response).to have_http_status 204
       end
     end
   end
@@ -94,7 +92,6 @@ RSpec.describe "Likes", type: :request do
       it "returns a 302 response" do
         delete "/likes/#{@post.id}"
         expect(response).to have_http_status 302
-        expect(response).to redirect_to new_user_session_path
       end
     end
 
@@ -109,8 +106,7 @@ RSpec.describe "Likes", type: :request do
       it "returns a 302 response" do
         sign_in user
         delete "/likes/#{@post.id}"
-        expect(response).to have_http_status 302
-        expect(response).to redirect_to "/posts/#{@post.id}"
+        expect(response).to have_http_status 200
       end
     end
   end

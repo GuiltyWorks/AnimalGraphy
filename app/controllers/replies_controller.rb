@@ -1,20 +1,21 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_target_post, { only: [ :create ] }
   before_action :set_target_reply, { only: [ :edit, :update, :destroy ] }
   before_action :ensure_correct_user, { only: [ :edit, :update, :destroy ] }
 
   def create
     @reply = Reply.new(reply_params)
     if @reply.save
+      if params[:reply][:from_path].nil?
+        redirect_to @post
+        return
+      end
       @saved = true
       @replies = Reply.where(post_id: params[:reply][:post_id]).includes(:user).page(params[:page])
     else
       @saved = false
       @error_messages = @reply.errors.full_messages
-      # redirect_back fallback_location: @reply.post, flash: {
-      #  reply: @reply,
-      #  error_messages: @reply.errors.full_messages,
-      # }
     end
   end
 
@@ -40,6 +41,14 @@ class RepliesController < ApplicationController
   end
 
   private
+
+  def set_target_post
+    @post = Post.find_by(id: params[:reply][:post_id])
+    if @post.nil?
+      redirect_to posts_path, notice: "投稿が見つかりませんでした。"
+      return
+    end
+  end
 
   def set_target_reply
     @reply = Reply.find_by(id: params[:id])

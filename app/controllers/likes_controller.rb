@@ -16,7 +16,7 @@ class LikesController < ApplicationController
 
   def destroy
     like = Like.find_by(user_id: current_user.id, post_id: params[:id])
-    like.destroy
+    like&.destroy
     @liked = false
     @post_id = params[:id]
     @likes_count = Like.where(post_id: params[:id]).count

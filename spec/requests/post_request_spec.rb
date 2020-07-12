@@ -53,7 +53,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/search", params: { keyword: "Test" }
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/search", "layouts/application"
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/search", params: { keyword: "Test" }
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/search", "layouts/application"
       end
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/ranking/all"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/ranking/all"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
   end
@@ -91,7 +91,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/ranking/monthly"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
 
@@ -100,7 +100,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/ranking/monthly"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/ranking/weekly"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
 
@@ -119,7 +119,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/ranking/weekly"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
   end
@@ -129,7 +129,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/ranking/daily"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
 
@@ -138,7 +138,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/ranking/daily"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/ranking", "layouts/application"
       end
     end
   end
@@ -167,7 +167,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'トリ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -176,7 +176,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'トリ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -186,7 +186,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'ネコ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -195,7 +195,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'ネコ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -205,7 +205,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'イヌ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -214,7 +214,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'イヌ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -224,7 +224,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'ウマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -233,7 +233,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'ウマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -243,7 +243,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'ヒツジ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -252,7 +252,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'ヒツジ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -262,7 +262,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'ウシ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -271,7 +271,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'ウシ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -281,7 +281,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'ゾウ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -290,7 +290,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'ゾウ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -300,7 +300,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'クマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -309,7 +309,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'クマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -319,7 +319,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'シマウマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -328,7 +328,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'シマウマ').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -338,7 +338,7 @@ RSpec.describe "Posts", type: :request do
       it "returns a 200 response" do
         get "/posts/tags/#{Tag.find_by(name: 'キリン').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
 
@@ -347,7 +347,7 @@ RSpec.describe "Posts", type: :request do
         sign_in user
         get "/posts/tags/#{Tag.find_by(name: 'キリン').id}"
         expect(response).to have_http_status 200
-        expect(response).to render_template "posts/index", "layouts/application"
+        expect(response).to render_template "posts/tags", "layouts/application"
       end
     end
   end
@@ -473,14 +473,15 @@ RSpec.describe "Posts", type: :request do
 
       it "increases Post counts" do
         expect {
+          get posts_path
           post "/posts", params: { post: { comment: "Test Comment.", image: fixture_file_upload("spec/files/cat.jpg") } }, headers: { "content-type": "multipart/form-data" }
         }.to change(Post, :count).by(1)
       end
 
       it "returns a 302 response" do
+        get posts_path
         post "/posts", params: { post: { comment: "Test Comment.", image: fixture_file_upload("spec/files/cat.jpg") } }, headers: { "content-type": "multipart/form-data" }
         expect(response).to have_http_status 302
-        expect(response).to redirect_to posts_path
       end
     end
   end

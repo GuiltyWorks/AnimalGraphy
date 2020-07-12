@@ -2,7 +2,7 @@
   <div class="container w-50">
     <%= form_with model: @post do |f| %>
       <div class="form-body">
-        <%= render "share/error" %>
+        <%= render partial: "share/error", locals: { error_messages: @post.errors.full_messages } %>
         <%= f.label :image, "画像" %>
         <%= f.file_field :image, class: "mb-2" %>
         <%= f.label :comment, "コメント" %>
