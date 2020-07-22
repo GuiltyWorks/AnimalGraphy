@@ -67,7 +67,7 @@ Rails.application.configure do
     port: 587,
     user_name: "animalgraphy.developer@gmail.com",
     password: ENV["MAILPASSWORD"],
-    authentication: :plain,
+    authentication: "plain",
     enable_starttls_auto: true,
   }
 
