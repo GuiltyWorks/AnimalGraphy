@@ -92,6 +92,10 @@ gem 'dotenv-rails'
 # https://github.com/mperham/sidekiq
 gem 'sidekiq'
 
+# A simple and safe way to dynamically render error pages for Rails apps.
+# https://github.com/yuki24/rambulance
+gem 'rambulance'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [ :mri, :mingw, :x64_mingw ]

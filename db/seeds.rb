@@ -6,9 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-if Rails.env == "development"
-  labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt").reject { |label| label.chomp == "other" }
-  labels.each do |label|
-    Tag.create(name: label.chomp)
-  end
+labels = File.readlines("public/object_detection/coco-labels-2014_2017.txt").reject { |label| label.chomp == "other" }
+labels.each do |label|
+  Tag.create(name: label.chomp) if Tag.find_by(name: label.chomp).nil?
 end

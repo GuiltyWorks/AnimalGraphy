@@ -3,12 +3,13 @@ services:
     db:
         image: mysql:5.7
         environment:
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
             TZ: Asia/Tokyo
         ports:
             - "3306:3306"
         volumes:
+            - ./containers/mysql/multibyte.cnf:/etc/mysql/conf.d/multibyte.cnf
             - mysql-data:/var/lib/mysql
     redis:
         image: "redis:6.0"
@@ -22,8 +23,11 @@ services:
         build:
             context: .
         # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-        command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+        # command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -e development -C config/puma.rb"
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -e production -C config/puma.rb"
         environment:
+            # RAILS_ENV: development
+            RAILS_ENV: production
             TZ: Asia/Tokyo
         ports:
             - "3000:3000"
@@ -42,6 +46,7 @@ services:
             context: .
         command: bash -c "bundle exec sidekiq -C config/sidekiq.yml"
         environment:
+            RAILS_ENV: production
             TZ: Asia/Tokyo
         volumes:
             - .:/AnimalGraphy
