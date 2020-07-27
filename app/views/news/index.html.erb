@@ -3,12 +3,15 @@
     <div class="main-menu col-9">
       <% @news_list.each do |news| %>
         <div class="news-index-item bg-white shadow p-3 mb-3">
-          <a href="<%= news["url"] %>" target="_blank" rel="noopener noreferrer">
-            <img src="<%= news["image"] %>" class="float-left">
+          <a href="<%= news["link"] %>" target="_blank" rel="noopener noreferrer">
+            <img src="<%= LinkThumbnailer.generate(news["link"]).images.first.src.to_s %>" class="float-left">
             <p class="text-primary"><%= news["title"] %></p>
           </a>
         </div>
       <% end %>
+      <div class="pagenate mb-5">
+        <%= paginate @news_list %>
+      </div>
     </div>
     <div class="sub-menu col-3">
       <div class="sub-menu-item sidebar_fixed">

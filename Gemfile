@@ -96,6 +96,15 @@ gem 'sidekiq'
 # https://github.com/yuki24/rambulance
 gem 'rambulance'
 
+# Really Simple Syndication (RSS) is a family of formats that describe 'feeds,' specially constructed XML documents that allow an interested person to subscribe and receive updates from a particular web service.
+# This portion of the standard library provides tooling to read and create these feeds.
+# https://github.com/ruby/rss
+gem 'rss'
+
+# Ruby gem generating image thumbnails from a given URL.
+# https://github.com/gottfrois/link_thumbnailer
+gem 'link_thumbnailer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [ :mri, :mingw, :x64_mingw ]

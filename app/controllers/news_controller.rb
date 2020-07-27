@@ -7,25 +7,19 @@ class NewsController < ApplicationController
     end
 
     word = params[:key] == "general" ? CGI.escape("動物") : CGI.escape(tag.name)
-    url = "https://news.google.com/search?q=#{word}&hl=ja&gl=JP&ceid=JP%3Aja"
-    charset = nil
-    html = OpenURI.open_uri(url) do |f|
-      charset = f.charset
-      f.read
-    end
-    doc = Nokogiri::HTML.parse(html, nil, charset)
-
+    uri = "https://news.google.com/rss/search?q=#{word}&hl=ja&gl=JP&ceid=JP:ja"
     @news_list = []
-    links = doc.xpath("//h3[@class='ipQwMb ekueJc gEATFF RD0gLb']/a")
-    images = doc.xpath("//img[@class='tvs3Id QwxBBf']").map { |image| image.attr("src") }
-    links.each_with_index do |link, index|
-      @news_list << {
-        "url" => "https://news.google.com" + link.attr("href").slice(1, link.attr("href").length - 1),
-        "title" => link.text,
-        "image" => images[index].present? ? images[index] : "",
-      }
+    open(uri) do |rss|
+      feed = RSS::Parser.parse(rss)
+      feed.items.each do |item|
+        @news_list << {
+          "title" => item.title,
+          "link" => item.link,
+        }
+      end
     end
 
+    @news_list = Kaminari.paginate_array(@news_list).page(params[:page]).per(5)
     @active_list = make_active_list(params[:key])
   end
 
