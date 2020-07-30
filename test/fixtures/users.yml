@@ -39,20 +39,20 @@
 one:
   id: 1
   name: Tarou
-  email: tarou@testmail.com
+  email: tarou@example.com
   image_name: /user_images/default.jpg
   password_digest: <%= User.digest("password") %>
 
 two:
   id: 2
   name: Hanako
-  email: hanako@testmail.com
+  email: hanako@example.com
   image_name: /user_images/default.jpg
   password_digest: <%= User.digest("password") %>
 
 three:
   id: 3
   name: John
-  email: john@testmail.com
+  email: john@example.com
   image_name: /user_images/default.jpg
   password_digest: <%= User.digest("password") %>

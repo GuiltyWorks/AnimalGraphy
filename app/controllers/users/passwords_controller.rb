@@ -35,7 +35,7 @@ class Users::PasswordsController < Devise::PasswordsController
   private
 
   def check_guest
-    if params[:user][:email].downcase == "guest@guestmail.com"
+    if params[:user][:email].downcase == "guest@example.com"
       flash[:alert] = "ゲストユーザーの編集・削除できません。"
       redirect_to posts_path
     end

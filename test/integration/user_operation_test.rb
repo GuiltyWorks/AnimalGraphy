@@ -7,7 +7,7 @@ class UserOperationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template "users/new"
     assert_difference "User.count" do
-      post "/users/create", params: { name: "valid", email: "valid@validmail.com", password: "password" }
+      post "/users/create", params: { name: "valid", email: "valid@example.com", password: "password" }
     end
     assert_response :redirect
     assert_redirected_to "/users/#{session[:user_id]}"
@@ -26,7 +26,7 @@ class UserOperationTest < ActionDispatch::IntegrationTest
     get login_path
     assert_response :success
     assert_template "users/login_form"
-    post login_path, params: { email: "valid@validmail.com", password: "password" }
+    post login_path, params: { email: "valid@example.com", password: "password" }
     assert_response :redirect
     assert_redirected_to "/posts/index"
     follow_redirect!

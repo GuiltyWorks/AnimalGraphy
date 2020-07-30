@@ -6,7 +6,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template "users/new"
     assert_no_difference "User.count" do
-      post "/users/create", params: { name: nil, email: "invalid@invalidmail.com", password: "invalid" }
+      post "/users/create", params: { name: nil, email: "invalid@example.com", password: "invalid" }
     end
     assert_response :success
     assert_template "users/new"
@@ -18,7 +18,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_template "users/new"
     assert_difference "User.count" do
-      post "/users/create", params: { name: "valid", email: "valid@validmail.com", password: "password" }
+      post "/users/create", params: { name: "valid", email: "valid@example.com", password: "password" }
     end
     assert_response :redirect
     assert_redirected_to "/users/#{session[:user_id]}"

@@ -53,7 +53,7 @@ class User < ApplicationRecord
   has_many :replies, dependent: :delete_all
 
   def self.create_guest
-    find_or_create_by!(email: "guest@guestmail.com") do |user|
+    find_or_create_by!(email: "guest@example.com") do |user|
       user.name = "ゲスト"
       user.password = SecureRandom.urlsafe_base64
       user.confirmed_at = Date.today

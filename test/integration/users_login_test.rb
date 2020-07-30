@@ -9,7 +9,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get login_path
     assert_response :success
     assert_template "users/login_form"
-    post login_path, params: { email: "invalid@invalidmail.com", password: "invalid" }
+    post login_path, params: { email: "invalid@example.com", password: "invalid" }
     assert_response :success
     assert_template "users/login_form"
     assert_not is_logged_in?
