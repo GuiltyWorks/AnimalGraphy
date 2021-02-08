@@ -66,7 +66,7 @@ gem 'nokogiri'
 
 # This gem provides a simple and extremely flexible way to upload files from Ruby applications.
 # https://github.com/carrierwaveuploader/carrierwave
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 
 # Complete geocoding solution for Ruby.
 # https://github.com/alexreisner/geocoder
